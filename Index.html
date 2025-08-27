@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Peerzada Tajamul Mumtaz, Ph.D. — Personal Website</title>
+  <meta name="description" content="Personal academic website for Peerzada Tajamul Mumtaz, Ph.D.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff; 
+      --card:#ffffff; 
+      --text:#111827; 
+      --muted:#6b7280; 
+      --accent:#2563eb; /* blue */
+      --border:#e5e7eb;
+      --hover:#f9fafb;
+      --shadow:0 8px 30px rgba(0,0,0,0.06);
+      --max: 900px;
+    }
+    [data-theme="dark"]{
+      --bg:linear-gradient(180deg,#0b0c10 0%, #0e1016 100%);
+      --card:#111218;
+      --text:#e4e7ee;
+      --muted:#9aa3b2;
+      --accent:#7aa2ff; /* cornflower */
+      --border:#1d2233;
+      --hover:rgba(255,255,255,0.03);
+      --shadow:0 10px 40px rgba(0,0,0,0.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);transition:background 300ms ease,color 300ms ease}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--max);margin:0 auto;padding:24px}
+    .topbar{display:flex;justify-content:flex-end}
+    #themeToggle{position:relative;display:inline-flex;gap:8px;align-items:center;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:999px;padding:8px 12px;cursor:pointer;box-shadow:var(--shadow);transition:transform .2s ease, background .2s ease}
+    #themeToggle:hover{transform:translateY(-2px)}
+
+    header{display:grid;gap:18px;grid-template-columns:120px 1fr;align-items:center;margin-top:8px}
+    .avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;border:2px solid var(--border);background:#f3f4f6}
+    h1{font-size:clamp(24px,3.6vw,36px);line-height:1.15;margin:0}
+    .tag{display:inline-block;background:#f3f4f6;border:1px solid var(--border);color:#374151;padding:6px 10px;border-radius:999px;font-size:12px;margin-right:6px;transition:transform .15s ease}
+    [data-theme="dark"] .tag{background:#151a26;border-color:var(--border);color:#cdd6f4}
+    .tag:hover{transform:scale(1.04)}
+    .muted{color:var(--muted)}
+    .cta{display:inline-flex;gap:8px;align-items:center;background:var(--accent);color:#ffffff;border:0;border-radius:12px;padding:10px 14px;font-weight:600;box-shadow:var(--shadow);transition:transform .15s ease, filter .15s ease}
+    .cta:hover{filter:brightness(1.05);text-decoration:none;transform:translateY(-1px)}
+
+    .grid{display:grid;gap:18px}
+    @media(min-width:860px){.grid{grid-template-columns:2fr 1fr}}
+
+    section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform .2s ease, box-shadow .2s ease}
+    section:hover{transform:translateY(-2px)}
+    section::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--accent),#22c55e,#f59e0b,#ef4444);opacity:.9}
+    section h2{font-size:18px;margin:0 0 6px}
+    .pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#151a26;border:1px solid var(--border);font-size:12px;color:#b7c1d9;margin-right:6px}
+    [data-theme="light"] .pill{background:#f3f4f6;color:#374151}
+
+    .list{list-style:none;padding:0;margin:8px 0 0}
+    .list li{padding:10px;border-bottom:1px dashed var(--border);border-radius:8px}
+    .list li:last-child{border-bottom:0}
+    .list li:hover{background:var(--hover)}
+    .year{font-variant-numeric:tabular-nums;color:var(--accent)}
+    footer{opacity:.8;font-size:12px;margin:28px 0 8px}
+
+    .teach-item{display:grid;gap:4px;margin-bottom:12px}
+    .teach-item small{color:var(--muted)}
+    .flex{display:flex;gap:10px;flex-wrap:wrap}
+    .sep{height:1px;background:var(--border);margin:16px 0}
+
+    /* reveal on scroll */
+    .reveal{opacity:0;transform:translateY(8px);transition:opacity .5s ease, transform .5s ease}
+    .reveal.visible{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <button id="themeToggle" aria-label="Toggle color theme">🌙 Dark</button>
+    </div>
+    <!-- Header / Hero -->
+    <header class="reveal">
+      <img class="avatar" src="IMG_9138.jpeg" alt="Portrait of Peerzada Tajamul Mumtaz" />
+      <div>
+        <h1>Peerzada Tajamul Mumtaz, Ph.D.</h1>
+        <div class="flex" aria-label="tags">
+          <span class="tag">Postdoctoral Research Associate</span>
+          <span class="tag">Microbiome · EV Biology</span>
+          <span class="tag">Multi‑omics Data Integration</span>
+        </div>
+        <p class="muted">Accomplished Molecular Biologist with nearly 10 years of research experience, specializing in cell and extracellular vesicle (EV) biology, microbiology, host–microbe interactions, microbiome dynamics, and multi‑omics integration. Currently leading studies on biodistribution, bioavailability, and functional roles of microbial EVs in gut health and metabolic diseases at the University of Nebraska–Lincoln.</p>
+        <div class="flex">
+          <a class="cta" href="Peerzada_Tajamul_Mumtaz_CV.pdf" aria-label="Download CV">📄 Download CV</a>
+          <a href="mailto:pmumtaz2@unl.edu" class="muted"> pmumtaz2@unl.edu</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="sep" role="presentation"></div>
+
+    <div class="grid">
+      <!-- Research / Publications -->
+      <section class="reveal">
+        <h2>Selected Publications</h2>
+        <p class="muted">Representative publications from 2016–2025. Full list available on <a target="_blank" rel="noopener" href="https://scholar.google.co.in/citations?user=n3qT4_0AAAAJ&hl=en">Google Scholar</a>.</p>
+        <ul class="list">
+          <li><strong>Bovine milk extracellular vesicles, prepared by ultracentrifugation, contain microbial mRNA which does not accumulate in human plasma following milk consumption.</strong> <span class="year">2025</span> — <em>EVCNA</em>. </li>
+          <li><strong>Divergence of gut bacteria through the selection of genomic variants implicated in the metabolism of sugars, amino acids, and purines by small extracellular vesicles in milk.</strong> <span class="year">2025</span> — <em>Gut Microbes</em>. </li>
+          <li><strong>Comparative transcriptome analysis of E. coli & Staphylococcus aureus infected goat mammary epithelial cells reveals genes associated with infection.</strong> <span class="year">2024</span> — <em>International Immunopharmacology</em>. </li>
+          <li><strong>Mammary epithelial cell transcriptome reveals potential roles of lncRNAs in regulating milk synthesis pathways in Jersey and Kashmiri cattle.</strong> <span class="year">2022</span> — <em>BMC Genomics</em>. </li>
+          <li><strong>Expression of lncRNAs in response to bacterial infections of goat mammary epithelial cells reveals insights into mammary gland diseases.</strong> <span class="year">2022</span> — <em>Microbial Pathogenesis</em>. </li>
+          <li><strong>LncRNAs and immunity: watchdogs for host pathogen interactions.</strong> <span class="year">2017</span> — <em>Biological Procedures Online</em>. </li>
+          <li><strong>Circular RNAs: From Biogenesis to functional paradox.</strong> <span class="year">2020</span> — <em>Biological Procedures Online</em>. </li>
+          <li><strong>Scavenger receptor B1 facilitates the endocytosis of Escherichia coli via TLR4 signaling in goat mammary gland infection.</strong> <span class="year">2023</span> — <em>Cell Communication and Signaling</em>. </li>
+          <li><strong>Scavenger receptors in host defense: from functional aspects to mode of action.</strong> <span class="year">2022</span> — <em>Cell Communication and Signaling</em>. </li>
+          <li><strong>Long non‑coding RNAs: Mechanism of action and functional utility.</strong> <span class="year">2016</span> — <em>Non‑Coding RNA Research</em>. </li>
+          <li><strong>Comparative transcriptome analysis of mammary epithelial cells at different stages of lactation reveals wide differences in gene expression and pathways regulating milk synthesis between Jersey and Kashmiri cattle.</strong> <span class="year">2019</span> — <em>PLOS ONE</em>. </li>
+          <li><strong>Comparative milk proteome analysis of Kashmiri and Jersey cattle identifies differential expression of key proteins involved in immune system regulation and milk quality.</strong> <span class="year">2020</span> — <em>BMC Genomics</em>. </li>
+          <li><strong>Gene expression and antibody response in chicken against Salmonella Typhimurium challenge.</strong> <span class="year">2018</span> — <em>Poultry Science</em>. </li>
+          <li><strong>Salmonella typhimurium in poultry: a review.</strong> <span class="year">2017</span> — <em>World's Poultry Science Journal</em>. </li>
+          <li><strong>Impact of High Glycine Tyrosine Kap Gene on Cashmere Fibre Trait Characteristics.</strong> <span class="year">2017</span> — <em>Biotechnology Journal International</em>. </li>
+          <li><strong>Expression Kinetics of NRAMP gene family and immuno‑pathological manifestations against the challenge of Salmonella Typhimurium in poultry.</strong> <span class="year">2017</span> — <em>BMC Veterinary Research</em>. </li>
+        </ul>
+
+        <h2>Awards & Honors</h2>
+        <ul class="list">
+          <li><span class="year">2025</span> — M‑PACT FUTURES Scholar travel award, University of Michigan (fully funded conference participation)</li>
+          <li><span class="year">2024</span> — Best Poster Award, NPOD 10th Annual Research Symposium, UNL</li>
+          <li><span class="year">2020</span> — Token of Appreciation, Registrar GMC Doda, India</li>
+          <li><span class="year">2020</span> — ESACT Scholarship for Animal Cell Technology course</li>
+          <li><span class="year">2019</span> — GYAN Scholarship award, SciGenom Research Foundation</li>
+          <li><span class="year">2018</span> — Certificate of Achievement, Merck (Cell Culture Quiz)</li>
+          <li><span class="year">2018</span> — Acceptance for Raman‑Charpak Visiting Fellowship, INRA France (honored, though not secured)</li>
+          <li><span class="year">2011</span> — NCC C Certificate (National Cadet Corps)</li>
+        </ul>
+      </section>
+
+      <!-- Teaching & Contact -->
+      <section class="reveal">
+        <h2>Teaching Experience</h2>
+        <div class="teach-item">
+          <strong>Fall 2025 — Staff Teaching Assistant, Graduate Course: Molecular Nutrition Techniques (NHS 821)</strong>
+          <small>Department of Nutrition & Health Sciences, UNL</small>
+          <p class="muted">Facilitated lab sessions in nucleic acid extraction, PCR, cell culture, protein isolation, and Western blotting. Delivered hands‑on training to graduate students.</p>
+        </div>
+        <div class="teach-item">
+          <strong>Fall 2024 — Staff Teaching Assistant, Graduate Course: Molecular Nutrition Techniques (NHS 821)</strong>
+          <small>Department of Nutrition & Health Sciences, UNL</small>
+          <p class="muted">Led lab sessions on nucleic acid extraction, PCR, cell culture, protein extraction, and Western blotting. Provided hands‑on instruction to enhance methodological proficiency.</p>
+        </div>
+        <div class="teach-item">
+          <strong>Fall 2023 — Staff Teaching Assistant, Graduate Course: Molecular Nutrition Techniques (NHS 821)</strong>
+          <small>Department of Nutrition & Health Sciences, UNL</small>
+          <p class="muted">Facilitated lab sessions and instructed graduate students in molecular biology techniques including PCR, nucleic acid extraction, protein extraction, and Western blotting.</p>
+        </div>
+
+        <h2>Invited / Guest Lectures</h2>
+        <ul class="list">
+          <li><span class="year">2024</span> — “Bacterial Extracellular Vesicles: message in a bubble” (Graduate lecture, UNL)</li>
+          <li><span class="year">2023</span> — “Isolation and characterization of Bacterial Extracellular Vesicles” (Graduate lecture, UNL)</li>
+          <li><span class="year">2020</span> — Lecture on “Basic biomedical techniques” at Government Medical College, Doda (ICMR‑sponsored training, India)</li>
+        </ul>
+
+        <div class="sep" role="presentation"></div>
+        <h2>Contact</h2>
+        <p class="muted">Zempleni Lab, Department of Nutrition & Health Sciences<br>
+        University of Nebraska–Lincoln • 316 Ruth Leverton Hall, Lincoln, NE 68583‑0806<br>
+        Email: <a href="mailto:pmumtaz2@unl.edu">pmumtaz2@unl.edu</a> • Phone: (+1) 402‑808‑6379<br>
+        <a target="_blank" rel="noopener" href="https://scholar.google.co.in/citations?user=n3qT4_0AAAAJ&hl=en">Google Scholar</a> • <a href="https://orcid.org/">ORCID</a> • <a href="https://github.com/">GitHub</a>
+        </p>
+      </section>
+    </div>
+
+    <footer class="reveal">
+      © <span id="y"></span> Peerzada Tajamul Mumtaz. Last updated <time id="updated"></time>.
+    </footer>
+  </div>
+
+  <script>
+    // theme init
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('ptm_theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const start = saved || (prefersDark ? 'dark' : 'light');
+    function applyTheme(t){
+      root.setAttribute('data-theme', t);
+      btn.textContent = t === 'dark' ? '🌞 Light' : '🌙 Dark';
+      localStorage.setItem('ptm_theme', t);
+    }
+    applyTheme(start);
+    btn.addEventListener('click', ()=>{
+      const current = root.getAttribute('data-theme');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // footer date
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const d = new Date();
+    document.getElementById('updated').textContent = d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'});
+
+    // simple reveal on scroll
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
