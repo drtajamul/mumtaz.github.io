@@ -1,58 +1,63 @@
-<style>
+/* LEFT SIDEBAR */
 #left-slider {
   position: fixed;
-  top: 160px;
+  top: 140px;
   left: 0;
-  width: 320px;          /* wider */
-  padding-left: 16px;    /* small inner margin */
-  height: 70vh;
-  overflow: hidden;
+  width: 380px;              /* Wider */
+  padding-left: 20px;
   z-index: 999;
 }
 
+/* RIGHT SIDEBAR */
 #right-slider {
   position: fixed;
-  top: 160px;
+  top: 140px;
   right: 0;
-  width: 320px;          /* wider */
-  padding-right: 16px;
-  height: 70vh;
-  overflow: hidden;
+  width: 380px;              /* Wider */
+  padding-right: 20px;
   z-index: 999;
 }
+
+/* Scroll window */
+.slider-window {
+  height: 68vh;
+  overflow: hidden;
+}
+
+/* Slider track */
 .slider-track {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   animation: scroll-vertical 18s linear infinite;
 }
 
+/* Cards */
 .slider-card {
-  width: 100%;
   background: #111;
+  padding: 10px;
   border-radius: 8px;
-  padding: 6px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  width: 100%;
 }
 
 .slider-card img {
   width: 100%;
-  border-radius: 4px;
   display: block;
+  border-radius: 4px;
 }
 
-.slider-card p {
-  color: #fff;
-  margin: 6px 0 0;
-  font-size: 12px;
-  line-height: 1.2;
+/* Headings */
+.slider-heading {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.slider-card a {
-  color: inherit;
-  text-decoration: none;
-}
-
+/* Animation */
 @keyframes scroll-vertical {
   0% { transform: translateY(0); }
   100% { transform: translateY(-50%); }
@@ -63,7 +68,7 @@
   animation-play-state: paused;
 }
 
-/* hide side panels on small screens */
+/* Hide on small screens */
 @media (max-width: 992px) {
   #left-slider, #right-slider {
     display: none;
@@ -284,82 +289,73 @@
 </body>
   <!-- LEFT SIDE PDF SLIDER -->
 <div id="left-slider">
-  <div class="slider-heading">Latest publications</div>
-  <div class="slider-track">
-.slider-heading {
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-    <div class="slider-card">
-      <a href="paper1.pdf" target="_blank">
-        <img src="paper1_thumb.jpg">
-        <p><strong>Paper 1</strong><br>2024</p>
-      </a>
-    </div>
+  <div class="slider-heading">Latest Publications</div>
+  <div class="slider-window">
+    <div class="slider-track">
 
-    <div class="slider-card">
-      <a href="paper2.pdf" target="_blank">
-        <img src="paper2_thumb.jpg">
-        <p><strong>Paper 2</strong><br>2025</p>
-      </a>
-    </div>
+      <!-- Your left tiles here -->
+      <div class="slider-card">
+        <a href="paper2.pdf" target="_blank">
+          <img src="paper2_thumb.jpg">
+          <p><strong>Paper 2</strong><br>2025</p>
+        </a>
+      </div>
 
-    <!-- DUPLICATE for infinite scroll -->
-    <div class="slider-card">
-      <a href="paper1.pdf" target="_blank">
-        <img src="paper1_thumb.jpg">
-        <p><strong>Paper 1</strong><br>2024</p>
-      </a>
-    </div>
+      <div class="slider-card">
+        <a href="paper1.pdf" target="_blank">
+          <img src="paper1_thumb.jpg">
+          <p><strong>Paper 1</strong><br>2024</p>
+        </a>
+      </div>
 
-    <div class="slider-card">
-      <a href="paper2.pdf" target="_blank">
-        <img src="paper2_thumb.jpg">
-        <p><strong>Paper 2</strong><br>2025</p>
-      </a>
-    </div>
+      <!-- duplicate for infinite scroll -->
+      <div class="slider-card">
+        <a href="paper2.pdf" target="_blank">
+          <img src="paper2_thumb.jpg">
+          <p><strong>Paper 2</strong><br>2025</p>
+        </a>
+      </div>
 
+      <div class="slider-card">
+        <a href="paper1.pdf" target="_blank">
+          <img src="paper1_thumb.jpg">
+          <p><strong>Paper 1</strong><br>2024</p>
+        </a>
+      </div>
+
+    </div>
   </div>
 </div>
-
 
 <!-- RIGHT SIDE PHOTO/NEWS SLIDER -->
 <div id="right-slider">
   <div class="slider-heading">News</div>
-  <div class="slider-track">
-.slider-heading {
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-    <div class="slider-card">
-      <img src="news1.jpg">
-      <p><strong>News item 1</strong></p>
-    </div>
+  <div class="slider-window">
+    <div class="slider-track">
 
-    <div class="slider-card">
-      <img src="news2.jpg">
-      <p><strong>News item 2</strong></p>
-    </div>
+      <!-- Your right tiles here -->
+      <div class="slider-card">
+        <img src="news1.jpg">
+        <p><strong>News item 1</strong></p>
+      </div>
 
-    <!-- DUPLICATE for infinite scroll -->
-    <div class="slider-card">
-      <img src="news1.jpg">
-      <p><strong>News item 1</strong></p>
-    </div>
+      <div class="slider-card">
+        <img src="news2.jpg">
+        <p><strong>News item 2</strong></p>
+      </div>
 
-    <div class="slider-card">
-      <img src="news2.jpg">
-      <p><strong>News item 2</strong></p>
-    </div>
+      <!-- duplicate for infinite scroll -->
+      <div class="slider-card">
+        <img src="news1.jpg">
+        <p><strong>News item 1</strong></p>
+      </div>
 
+      <div class="slider-card">
+        <img src="news2.jpg">
+        <p><strong>News item 2</strong></p>
+      </div>
+
+    </div>
   </div>
 </div>
 </html>
