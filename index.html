@@ -260,43 +260,49 @@
       margin-bottom:6px;
     }
     .chart{
-      position:relative;
-      height:140px;
-      border-radius:10px;
-      border:1px solid var(--border);
-      padding:8px 8px 22px;
-      display:flex;
-      align-items:flex-end;
-      gap:6px;
-      background:radial-gradient(circle at top,var(--accent-soft) 0,transparent 55%);
-      overflow:hidden;
-    }
-    .chart-bar{
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
-      align-items:center;
-      gap:4px;
-      font-size:10px;
-      color:var(--muted);
-    }
-    .chart-bar-inner{
-      width:80%;
-      border-radius:999px 999px 0 0;
-      background:var(--accent);
-      opacity:.9;
-      position:relative;
-      transition:height .25s ease, transform .15s ease, opacity .15s ease;
-    }
-    .chart-bar-inner:hover{
-      opacity:1;
-      transform:translateY(-3px);
-    }
-    .chart-bar span{
-      font-variant-numeric:tabular-nums;
-    }
+  position:relative;
+  height:160px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  padding:8px 8px 22px;
+  display:flex;
+  align-items:flex-end;
+  gap:6px;
+  background:radial-gradient(circle at top,var(--accent-soft) 0,transparent 55%);
+  overflow:hidden;
+}
 
+/* container for each bar */
+.chart-bar{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:center;
+  gap:4px;
+  font-size:10px;
+  color:var(--muted);
+}
+
+/* actual bar */
+.chart-bar-inner{
+  width:80%;
+  border-radius:999px 999px 0 0;
+  background:#10b981; /* will be overwritten in JS with green→red gradient */
+  position:relative;
+  transition:height .25s ease, transform .15s ease, opacity .15s ease;
+}
+.chart-bar-inner:hover{
+  opacity:1;
+  transform:translateY(-3px);
+}
+
+/* SVG line overlay */
+.chart-line{
+  position:absolute;
+  inset:8px 8px 22px 8px;
+  pointer-events:none;
+}
     /* PUBLICATIONS WITH METRICS */
     .pub-item{display:grid;grid-template-columns:1fr;gap:4px}
     .pub-title{font-weight:600}
