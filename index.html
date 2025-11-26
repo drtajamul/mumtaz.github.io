@@ -947,174 +947,166 @@
   </div>
 
   <script>
-    // theme
-    const root = document.documentElement;
-    const btn = document.getElementById('themeToggle');
-    const saved = localStorage.getItem('ptm_theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const start = saved || (prefersDark ? 'dark' : 'light');
-    function applyTheme(t){
-      root.setAttribute('data-theme', t);
-      btn.textContent = t === 'dark' ? '🌞 Light' : '🌙 Dark';
-      localStorage.setItem('ptm_theme', t);
+  // ===== 1. METRICS DATA (EDIT ONLY THIS OBJECT) =====
+  const metricsData = {
+    // from Google Scholar
+    totalCitations: 981,
+    totalIF: 80.3,          // put your own sum of IFs here
+
+    // from the “Citations per year” bars on Google Scholar
+    // replace citation numbers with the exact ones you see
+    yearly: [
+      { year: 2018, citations: 25 },
+      { year: 2019, citations: 56 },
+      { year: 2020, citations: 82 },
+      { year: 2021, citations: 133 },
+      { year: 2022, citations: 169 },
+      { year: 2023, citations: 163 },
+      { year: 2024, citations: 176 },
+      { year: 2025, citations: 156 }
+    ],
+
+    // per-paper metrics: fill from Scholar + journal IF pages
+    publications: {
+      'pub-evcna': { citations: 1,  impactFactor: 4.8 },
+      'pub-gutmicrobes-2025': { citations: 2, impactFactor: 14 },
+      'pub-iip-2024': { citations: 7, impactFactor: 5.6 },
+      'pub-bmcg-2022-lnc-milk': { citations: 20, impactFactor: 4.3 },
+      'pub-mpath-2022': { citations: 15, impactFactor: 3.5 },
+      'pub-bpo-2017-lnc-immunity': { citations: 60, impactFactor: 3.9 },
+      'pub-bpo-2020-circRNA': { citations: 120, impactFactor: 3.9 },
+      'pub-ccs-2023': { citations: 30, impactFactor: 6.0 },
+      'pub-ccs-2022-sr-review': { citations: 50, impactFactor: 6.0 },
+      'pub-ncrr-2016': { citations: 90, impactFactor: 3.0 },
+      'pub-plosone-2019': { citations: 80, impactFactor: 3.7 },
+      'pub-bmcg-2020-proteome': { citations: 40, impactFactor: 4.3 },
+      'pub-poultrysci-2018': { citations: 55, impactFactor: 4.4 },
+      'pub-wpsj-2017': { citations: 70, impactFactor: 2.2 },
+      'pub-bji-2017': { citations: 10, impactFactor: 1.0 },
+      'pub-bmcv-2017': { citations: 50, impactFactor: 3.1 }
     }
-    applyTheme(start);
-    btn.addEventListener('click', ()=>{
-      const current = root.getAttribute('data-theme');
-      applyTheme(current === 'dark' ? 'light' : 'dark');
+  };
+
+  // ===== 2. THEME TOGGLE =====
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('ptm_theme');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const start = saved || (prefersDark ? 'dark' : 'light');
+
+  function applyTheme(t){
+    root.setAttribute('data-theme', t);
+    btn.textContent = t === 'dark' ? '🌞 Light' : '🌙 Dark';
+    localStorage.setItem('ptm_theme', t);
+  }
+  applyTheme(start);
+  btn.addEventListener('click', ()=>{
+    const current = root.getAttribute('data-theme');
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  });
+
+  // ===== 3. FOOTER DATE =====
+  document.getElementById('y').textContent = new Date().getFullYear();
+  const d = new Date();
+  document.getElementById('updated').textContent =
+    d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'});
+
+  // ===== 4. REVEAL ON SCROLL =====
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  // ===== 5. TOP SUMMARY METRICS =====
+  if(typeof metricsData.totalCitations === 'number'){
+    document.getElementById('totalCitations').textContent =
+      metricsData.totalCitations.toString();
+  }
+  if(typeof metricsData.totalIF === 'number'){
+    document.getElementById('totalIF').textContent =
+      metricsData.totalIF.toFixed(1);
+  }
+
+  // ===== 6. YEARLY CITATION CHART (BARS + GREEN→RED + LINE) =====
+  const chartRoot = document.getElementById('citationChart');
+
+  if (chartRoot && Array.isArray(metricsData.yearly) && metricsData.yearly.length) {
+    const yearly = metricsData.yearly;
+    const maxCites = Math.max(...yearly.map(x => x.citations || 0), 1);
+
+    yearly.forEach((item) => {
+      const barWrap = document.createElement('div');
+      barWrap.className = 'chart-bar';
+
+      const bar = document.createElement('div');
+      bar.className = 'chart-bar-inner';
+
+      const heightPct = (item.citations / maxCites) * 100;
+      bar.style.height = heightPct + '%';
+
+      // green → red based on citations
+      const ratio = item.citations / maxCites; // 0..1
+      const hueStart = 130; // green
+      const hueEnd = 0;     // red
+      const hue = hueStart + (hueEnd - hueStart) * ratio;
+      const color = `hsl(${hue}, 75%, 45%)`;
+      bar.style.background = color;
+
+      const labelYear = document.createElement('span');
+      labelYear.textContent = item.year.toString();
+
+      const labelC = document.createElement('span');
+      labelC.textContent = item.citations.toString();
+
+      barWrap.appendChild(bar);
+      barWrap.appendChild(labelC);
+      barWrap.appendChild(labelYear);
+      chartRoot.appendChild(barWrap);
     });
 
-    // footer date
-    document.getElementById('y').textContent = new Date().getFullYear();
-    const d = new Date();
-    document.getElementById('updated').textContent = d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'});
+    // SVG line connecting bar tops
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'chart-line');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('preserveAspectRatio', 'none');
 
-    // reveal
-    const obs = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); } });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    const polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    polyline.setAttribute('fill', 'none');
+    polyline.setAttribute('stroke', 'rgba(148,163,184,0.9)');
+    polyline.setAttribute('stroke-width', '1.5');
 
-    // ====== EDIT THESE VALUES FROM GOOGLE SCHOLAR / JOURNAL SITES ======
-    const metricsData = {
-  // from the top of your Google Scholar box
-  totalCitations: 981,
-  totalIF: 80.3,   // example value, replace with your own sum
+    const n = yearly.length;
+    const points = yearly.map((item, index) => {
+      const x = ((index + 0.5) / n) * 100;
+      const y = 100 - (item.citations / maxCites) * 100;
+      return `${x},${y}`;
+    }).join(' ');
 
-  // from the “Citations per year” bars (hover each bar for the exact value)
-  yearly: [
-    { year: 2018, citations: 25 },   // replace 18 with the real value
-    { year: 2019, citations: 56 },   // …
-    { year: 2020, citations: 82 },
-    { year: 2021, citations: 133 },
-    { year: 2022, citations: 169 },
-    { year: 2023, citations: 163 },
-    { year: 2024, citations: 176 },
-    { year: 2025, citations: 156 }
-  ],
+    polyline.setAttribute('points', points);
+    svg.appendChild(polyline);
+    chartRoot.appendChild(svg);
 
-  // per-paper metrics (examples, edit with real numbers)
-  publications: {
-    'pub-evcna': {
-      citations: 1,
-      impactFactor: 4.0
-    },
-    'pub-gutmicrobes-2025': {
-      citations: 10,
-      impactFactor: 8.0
-    },
-    'pub-iip-2024': {
-      citations: 7,
-      impactFactor: 5.6
-    },
-    'pub-bmcg-2022-lnc-milk': {
-      citations: 20,
-      impactFactor: 4.3
-    },
-    'pub-mpath-2022': {
-      citations: 15,
-      impactFactor: 3.5
-    },
-    'pub-bpo-2017-lnc-immunity': {
-      citations: 60,
-      impactFactor: 3.9
-    },
-    'pub-bpo-2020-circRNA': {
-      citations: 120,
-      impactFactor: 3.9
-    },
-    'pub-ccs-2023': {
-      citations: 30,
-      impactFactor: 6.0
-    },
-    'pub-ccs-2022-sr-review': {
-      citations: 50,
-      impactFactor: 6.0
-    },
-    'pub-ncrr-2016': {
-      citations: 90,
-      impactFactor: 3.0
-    },
-    'pub-plosone-2019': {
-      citations: 80,
-      impactFactor: 3.7
-    },
-    'pub-bmcg-2020-proteome': {
-      citations: 40,
-      impactFactor: 4.3
-    },
-    'pub-poultrysci-2018': {
-      citations: 55,
-      impactFactor: 4.4
-    },
-    'pub-wpsj-2017': {
-      citations: 70,
-      impactFactor: 2.2
-    },
-    'pub-bji-2017': {
-      citations: 10,
-      impactFactor: 1.0
-    },
-    'pub-bmcv-2017': {
-      citations: 50,
-      impactFactor: 3.1
-    }
+  } else if (chartRoot) {
+    chartRoot.innerHTML =
+      '<span class="muted" style="font-size:12px;">Add yearly citation data in metricsData.yearly to view the chart.</span>';
   }
-};
-    // ================================================================
 
-    // apply metrics
-    if(typeof metricsData.totalCitations === 'number'){
-      document.getElementById('totalCitations').textContent = metricsData.totalCitations.toString();
-    }
-    if(typeof metricsData.totalIF === 'number'){
-      document.getElementById('totalIF').textContent = metricsData.totalIF.toFixed(1);
-    }
-
-    // chart
-    const chartRoot = document.getElementById('citationChart');
-    if(chartRoot && Array.isArray(metricsData.yearly) && metricsData.yearly.length){
-      const maxCites = Math.max(...metricsData.yearly.map(x=>x.citations || 0), 1);
-      metricsData.yearly.forEach(item=>{
-        const barWrap = document.createElement('div');
-        barWrap.className = 'chart-bar';
-
-        const bar = document.createElement('div');
-        bar.className = 'chart-bar-inner';
-        const heightPct = (item.citations / maxCites) * 100;
-        bar.style.height = heightPct + '%';
-
-        const labelYear = document.createElement('span');
-        labelYear.textContent = item.year.toString();
-
-        const labelC = document.createElement('span');
-        labelC.textContent = item.citations.toString();
-
-        barWrap.appendChild(bar);
-        barWrap.appendChild(labelC);
-        barWrap.appendChild(labelYear);
-        chartRoot.appendChild(barWrap);
-      });
-    } else if(chartRoot){
-      chartRoot.innerHTML = '<span class="muted" style="font-size:12px;">Add yearly citation data in the script to view the chart.</span>';
-    }
-
-    // per-publication metrics
-    if(metricsData.publications){
-      Object.keys(metricsData.publications).forEach(id=>{
-        const data = metricsData.publications[id];
-        const li = document.getElementById(id);
-        if(!li) return;
-        const cSpan = li.querySelector('.pub-citations');
-        const ifSpan = li.querySelector('.pub-if');
-        if(cSpan && typeof data.citations === 'number'){
-          cSpan.textContent = data.citations.toString();
-        }
-        if(ifSpan && typeof data.impactFactor === 'number'){
-          ifSpan.textContent = data.impactFactor.toFixed(1);
-        }
-      });
-    }
-  </script>
+  // ===== 7. PER-PUBLICATION METRICS FILL =====
+  if(metricsData.publications){
+    Object.keys(metricsData.publications).forEach(id=>{
+      const data = metricsData.publications[id];
+      const li = document.getElementById(id);
+      if(!li) return;
+      const cSpan = li.querySelector('.pub-citations');
+      const ifSpan = li.querySelector('.pub-if');
+      if(cSpan && typeof data.citations === 'number'){
+        cSpan.textContent = data.citations.toString();
+      }
+      if(ifSpan && typeof data.impactFactor === 'number'){
+        ifSpan.textContent = data.impactFactor.toFixed(1);
+      }
+    });
+  }
+</script>
 </body>
 </html>
