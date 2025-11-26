@@ -1,81 +1,3 @@
-<style>
-/* LEFT SIDEBAR */
-#left-slider {
-  position: fixed;
-  top: 140px;
-  left: 0;
-  width: 380px;              /* Wider */
-  padding-left: 20px;
-  z-index: 999;
-}
-
-/* RIGHT SIDEBAR */
-#right-slider {
-  position: fixed;
-  top: 140px;
-  right: 0;
-  width: 380px;              /* Wider */
-  padding-right: 20px;
-  z-index: 999;
-}
-
-/* Scroll window */
-.slider-window {
-  height: 68vh;
-  overflow: hidden;
-}
-
-/* Slider track */
-.slider-track {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  animation: scroll-vertical 18s linear infinite;
-}
-
-/* Cards */
-.slider-card {
-  background: #111;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-  width: 100%;
-}
-
-.slider-card img {
-  width: 100%;
-  display: block;
-  border-radius: 4px;
-}
-
-/* Headings */
-.slider-heading {
-  font-size: 26px;
-  font-weight: 800;
-  margin-bottom: 12px;
-  color: #000;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* Animation */
-@keyframes scroll-vertical {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-50%); }
-}
-
-#left-slider:hover .slider-track,
-#right-slider:hover .slider-track {
-  animation-play-state: paused;
-}
-
-/* Hide on small screens */
-@media (max-width: 992px) {
-  #left-slider, #right-slider {
-    display: none;
-  }
-}
-</style>
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -92,74 +14,409 @@
       --card:#ffffff; 
       --text:#111827; 
       --muted:#6b7280; 
-      --accent:#2563eb; /* blue */
+      --accent:#2563eb;
       --border:#e5e7eb;
       --hover:#f9fafb;
       --shadow:0 8px 30px rgba(0,0,0,0.06);
-      --max: 900px;
+      --max: 1100px;
+      --accent-soft:rgba(37,99,235,0.1);
     }
     [data-theme="dark"]{
       --bg:linear-gradient(180deg,#0b0c10 0%, #0e1016 100%);
       --card:#111218;
       --text:#e4e7ee;
       --muted:#9aa3b2;
-      --accent:#7aa2ff; /* cornflower */
+      --accent:#7aa2ff;
       --border:#1d2233;
       --hover:rgba(255,255,255,0.03);
       --shadow:0 10px 40px rgba(0,0,0,0.35);
+      --accent-soft:rgba(122,162,255,0.12);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);transition:background 300ms ease,color 300ms ease}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      transition:background 300ms ease,color 300ms ease
+    }
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
-    .wrap{max-width:var(--max);margin:0 auto;padding:24px}
-    .topbar{display:flex;justify-content:flex-end}
-    #themeToggle{position:relative;display:inline-flex;gap:8px;align-items:center;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:999px;padding:8px 12px;cursor:pointer;box-shadow:var(--shadow);transition:transform .2s ease, background .2s ease}
+    .wrap{max-width:var(--max);margin:0 auto;padding:16px 16px 40px}
+
+    /* TOPBAR + NAV */
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:8px;
+    }
+    .nav-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      font-size:13px;
+    }
+    .nav-links a{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+      color:var(--muted);
+      text-decoration:none;
+    }
+    .nav-links a:hover{
+      border-color:var(--border);
+      background:var(--hover);
+      color:var(--text);
+    }
+    #themeToggle{
+      position:relative;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      background:var(--card);
+      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:8px 12px;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+      transition:transform .2s ease, background .2s ease
+    }
     #themeToggle:hover{transform:translateY(-2px)}
 
-    header{display:grid;gap:18px;grid-template-columns:120px 1fr;align-items:center;margin-top:8px}
-    .avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;border:2px solid var(--border);background:#f3f4f6}
-    h1{font-size:clamp(24px,3.6vw,36px);line-height:1.15;margin:0}
-    .tag{display:inline-block;background:#f3f4f6;border:1px solid var(--border);color:#374151;padding:6px 10px;border-radius:999px;font-size:12px;margin-right:6px;transition:transform .15s ease}
-    [data-theme="dark"] .tag{background:#151a26;border-color:var(--border);color:#cdd6f4}
+    header{
+      display:grid;
+      gap:18px;
+      grid-template-columns:120px 1fr;
+      align-items:center;
+      margin-top:4px
+    }
+    .avatar{
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      object-fit:cover;
+      border:2px solid var(--border);
+      background:#f3f4f6
+    }
+    h1{
+      font-size:clamp(24px,3.6vw,36px);
+      line-height:1.15;
+      margin:0
+    }
+    .tag{
+      display:inline-block;
+      background:#f3f4f6;
+      border:1px solid var(--border);
+      color:#374151;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      margin-right:6px;
+      transition:transform .15s ease
+    }
+    [data-theme="dark"] .tag{
+      background:#151a26;
+      border-color:var(--border);
+      color:#cdd6f4
+    }
     .tag:hover{transform:scale(1.04)}
     .muted{color:var(--muted)}
-    .cta{display:inline-flex;gap:8px;align-items:center;background:var(--accent);color:#ffffff;border:0;border-radius:12px;padding:10px 14px;font-weight:600;box-shadow:var(--shadow);transition:transform .15s ease, filter .15s ease}
-    .cta:hover{filter:brightness(1.05);text-decoration:none;transform:translateY(-1px)}
-
-    .grid{display:grid;gap:18px}
-    @media(min-width:860px){.grid{grid-template-columns:2fr 1fr}}
-
-    section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform .2s ease, box-shadow .2s ease}
-    section:hover{transform:translateY(-2px)}
-    section::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--accent),#22c55e,#f59e0b,#ef4444);opacity:.9}
-    section h2{font-size:18px;margin:0 0 6px}
-    .pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#151a26;border:1px solid var(--border);font-size:12px;color:#b7c1d9;margin-right:6px}
-    [data-theme="light"] .pill{background:#f3f4f6;color:#374151}
-
-    .list{list-style:none;padding:0;margin:8px 0 0}
-    .list li{padding:10px;border-bottom:1px dashed var(--border);border-radius:8px}
-    .list li:last-child{border-bottom:0}
-    .list li:hover{background:var(--hover)}
-    .year{font-variant-numeric:tabular-nums;color:var(--accent)}
-    footer{opacity:.8;font-size:12px;margin:28px 0 8px}
-
-    .teach-item{display:grid;gap:4px;margin-bottom:12px}
-    .teach-item small{color:var(--muted)}
+    .cta{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      background:var(--accent);
+      color:#ffffff;
+      border:0;
+      border-radius:12px;
+      padding:10px 14px;
+      font-weight:600;
+      box-shadow:var(--shadow);
+      transition:transform .15s ease, filter .15s ease
+    }
+    .cta:hover{
+      filter:brightness(1.05);
+      text-decoration:none;
+      transform:translateY(-1px)
+    }
     .flex{display:flex;gap:10px;flex-wrap:wrap}
     .sep{height:1px;background:var(--border);margin:16px 0}
 
-    /* reveal on scroll */
+    .grid{
+      display:grid;
+      gap:18px;
+    }
+    @media(min-width:900px){
+      .grid{
+        grid-template-columns:2fr 1.1fr;
+        align-items:flex-start;
+      }
+    }
+
+    section{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+      transition:transform .2s ease, box-shadow .2s ease
+    }
+    section:hover{transform:translateY(-2px)}
+    section::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:3px;
+      background:linear-gradient(90deg,var(--accent),#22c55e,#f59e0b,#ef4444);
+      opacity:.9
+    }
+    section h2{
+      font-size:18px;
+      margin:0 0 6px
+    }
+    section h3{
+      font-size:15px;
+      margin:12px 0 4px;
+    }
+    .pill{
+      display:inline-block;
+      padding:4px 8px;
+      border-radius:999px;
+      background:#151a26;
+      border:1px solid var(--border);
+      font-size:12px;
+      color:#b7c1d9;
+      margin-right:6px
+    }
+    [data-theme="light"] .pill{
+      background:#f3f4f6;
+      color:#374151
+    }
+
+    .list{list-style:none;padding:0;margin:8px 0 0}
+    .list li{
+      padding:10px;
+      border-bottom:1px dashed var(--border);
+      border-radius:8px
+    }
+    .list li:last-child{border-bottom:0}
+    .list li:hover{background:var(--hover)}
+    .year{font-variant-numeric:tabular-nums;color:var(--accent)}
+
+    footer{
+      opacity:.8;
+      font-size:12px;
+      margin:28px 0 8px
+    }
+
+    .teach-item{
+      display:grid;
+      gap:4px;
+      margin-bottom:12px
+    }
+    .teach-item small{color:var(--muted)}
+
+    /* REVEAL */
     .reveal{opacity:0;transform:translateY(8px);transition:opacity .5s ease, transform .5s ease}
     .reveal.visible{opacity:1;transform:none}
+
+    /* METRICS + CHART */
+    .metrics-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin:8px 0 10px;
+    }
+    .metric-card{
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:var(--accent-soft);
+    }
+    .metric-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      color:var(--muted);
+      margin-bottom:4px;
+    }
+    .metric-value{
+      font-size:22px;
+      font-weight:700;
+    }
+    .metric-value strong{
+      font-weight:800;
+    }
+    .chart-wrap{
+      margin-top:6px;
+    }
+    .chart-wrap h3{
+      margin-bottom:6px;
+    }
+    .chart{
+      position:relative;
+      height:140px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      padding:8px 8px 22px;
+      display:flex;
+      align-items:flex-end;
+      gap:6px;
+      background:radial-gradient(circle at top,var(--accent-soft) 0,transparent 55%);
+      overflow:hidden;
+    }
+    .chart-bar{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      align-items:center;
+      gap:4px;
+      font-size:10px;
+      color:var(--muted);
+    }
+    .chart-bar-inner{
+      width:80%;
+      border-radius:999px 999px 0 0;
+      background:var(--accent);
+      opacity:.9;
+      position:relative;
+      transition:height .25s ease, transform .15s ease, opacity .15s ease;
+    }
+    .chart-bar-inner:hover{
+      opacity:1;
+      transform:translateY(-3px);
+    }
+    .chart-bar span{
+      font-variant-numeric:tabular-nums;
+    }
+
+    /* PUBLICATIONS WITH METRICS */
+    .pub-item{display:grid;grid-template-columns:1fr;gap:4px}
+    .pub-title{font-weight:600}
+    .pub-venue{
+      font-size:13px;
+      color:var(--muted);
+    }
+    .pub-metrics{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      font-size:12px;
+      color:var(--muted);
+      margin-top:4px;
+    }
+    .pub-metrics span strong{
+      color:var(--text);
+      font-weight:600;
+    }
+
+    /* PRESENTATIONS / POSTERS */
+    .sub-list{
+      list-style:none;
+      padding:0;
+      margin:4px 0 0;
+      font-size:14px;
+    }
+    .sub-list li{
+      padding:8px 0;
+      border-bottom:1px dashed var(--border);
+    }
+    .sub-list li:last-child{border-bottom:0}
+
+    /* LEFT + RIGHT SLIDERS */
+    #left-slider {
+      position: fixed;
+      top: 140px;
+      left: 0;
+      width: 380px;
+      padding-left: 20px;
+      z-index: 999;
+    }
+    #right-slider {
+      position: fixed;
+      top: 140px;
+      right: 0;
+      width: 380px;
+      padding-right: 20px;
+      z-index: 999;
+    }
+    .slider-window {
+      height: 68vh;
+      overflow: hidden;
+    }
+    .slider-track {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      animation: scroll-vertical 18s linear infinite;
+    }
+    .slider-card {
+      background: #111;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      width: 100%;
+      color:#f9fafb;
+      font-size:13px;
+    }
+    .slider-card img {
+      width: 100%;
+      display: block;
+      border-radius: 4px;
+      margin-bottom:4px;
+    }
+    .slider-heading {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    @keyframes scroll-vertical {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+    #left-slider:hover .slider-track,
+    #right-slider:hover .slider-track {
+      animation-play-state: paused;
+    }
+    @media (max-width: 1200px) {
+      #left-slider, #right-slider {
+        display: none;
+      }
+    }
+
+    @media(max-width:640px){
+      header{
+        grid-template-columns:1fr;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="topbar">
+      <nav class="nav-links" aria-label="Main">
+        <a href="#metrics">Metrics</a>
+        <a href="#research-focus">Research</a>
+        <a href="#future-research">Future</a>
+        <a href="#publications">Publications</a>
+        <a href="#presentations">Talks</a>
+        <a href="#posters">Posters</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#contact">Contact</a>
+      </nav>
       <button id="themeToggle" aria-label="Toggle color theme">🌙 Dark</button>
     </div>
+
     <!-- Header / Hero -->
     <header class="reveal">
       <img class="avatar" src="IMG_9138.jpeg" alt="Portrait of Peerzada Tajamul Mumtaz" />
@@ -168,89 +425,442 @@
         <div class="flex" aria-label="tags">
           <span class="tag">Postdoctoral Research Associate</span>
           <span class="tag">Microbiome · EV Biology</span>
-          <span class="tag">Multi‑omics Data Integration</span>
+          <span class="tag">Multi-omics Integration</span>
         </div>
-        <p class="muted">Accomplished Molecular Biologist with nearly 10 years of research experience, specializing in cell and extracellular vesicle (EV) biology, microbiology, host–microbe interactions, microbiome dynamics, and multi‑omics integration. Currently leading studies on biodistribution, bioavailability, and functional roles of microbial EVs in gut health and metabolic diseases at the University of Nebraska–Lincoln.</p>
+        <p class="muted">
+          Molecular biologist with research focus on cell and extracellular vesicle biology, microbiology, host–microbe interactions, and multi-omics.
+          Current work at the University of Nebraska–Lincoln links microbial extracellular vesicles to gut health, immune pathways, and metabolic disease.
+        </p>
         <div class="flex">
           <a class="cta" href="Peerzada_Tajamul_Mumtaz_CV.pdf" aria-label="Download CV">📄 Download CV</a>
-          <a href="mailto:pmumtaz2@unl.edu" class="muted"> pmumtaz2@unl.edu</a>
+          <a href="mailto:pmumtaz2@unl.edu" class="muted">pmumtaz2@unl.edu</a>
         </div>
       </div>
     </header>
 
+    <!-- Metrics + Citation graph -->
+    <section id="metrics" class="reveal" style="margin-top:16px;">
+      <h2>Scholar Metrics</h2>
+      <p class="muted" style="margin-top:4px;">Values mirror Google Scholar profile and journal reports. Edit numbers in the script block to keep this section current.</p>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Cumulative citations</div>
+          <div class="metric-value"><strong id="totalCitations">0</strong></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Sum of journal impact factors</div>
+          <div class="metric-value"><strong id="totalIF">0.0</strong></div>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <h3>Yearly citations</h3>
+        <div id="citationChart" class="chart" aria-label="Yearly citation bar chart"></div>
+      </div>
+    </section>
+
     <div class="sep" role="presentation"></div>
 
     <div class="grid">
-      <!-- Research / Publications -->
-      <section class="reveal">
-        <h2>Selected Publications</h2>
-        <p class="muted">Representative publications from 2016–2025. Full list available on <a target="_blank" rel="noopener" href="https://scholar.google.co.in/citations?user=n3qT4_0AAAAJ&hl=en">Google Scholar</a>.</p>
-        <ul class="list">
-          <li><strong>Bovine milk extracellular vesicles, prepared by ultracentrifugation, contain microbial mRNA which does not accumulate in human plasma following milk consumption.</strong> <span class="year">2025</span> — <em>EVCNA</em>. </li>
-          <li><strong>Divergence of gut bacteria through the selection of genomic variants implicated in the metabolism of sugars, amino acids, and purines by small extracellular vesicles in milk.</strong> <span class="year">2025</span> — <em>Gut Microbes</em>. </li>
-          <li><strong>Comparative transcriptome analysis of E. coli & Staphylococcus aureus infected goat mammary epithelial cells reveals genes associated with infection.</strong> <span class="year">2024</span> — <em>International Immunopharmacology</em>. </li>
-          <li><strong>Mammary epithelial cell transcriptome reveals potential roles of lncRNAs in regulating milk synthesis pathways in Jersey and Kashmiri cattle.</strong> <span class="year">2022</span> — <em>BMC Genomics</em>. </li>
-          <li><strong>Expression of lncRNAs in response to bacterial infections of goat mammary epithelial cells reveals insights into mammary gland diseases.</strong> <span class="year">2022</span> — <em>Microbial Pathogenesis</em>. </li>
-          <li><strong>LncRNAs and immunity: watchdogs for host pathogen interactions.</strong> <span class="year">2017</span> — <em>Biological Procedures Online</em>. </li>
-          <li><strong>Circular RNAs: From Biogenesis to functional paradox.</strong> <span class="year">2020</span> — <em>Biological Procedures Online</em>. </li>
-          <li><strong>Scavenger receptor B1 facilitates the endocytosis of Escherichia coli via TLR4 signaling in goat mammary gland infection.</strong> <span class="year">2023</span> — <em>Cell Communication and Signaling</em>. </li>
-          <li><strong>Scavenger receptors in host defense: from functional aspects to mode of action.</strong> <span class="year">2022</span> — <em>Cell Communication and Signaling</em>. </li>
-          <li><strong>Long non‑coding RNAs: Mechanism of action and functional utility.</strong> <span class="year">2016</span> — <em>Non‑Coding RNA Research</em>. </li>
-          <li><strong>Comparative transcriptome analysis of mammary epithelial cells at different stages of lactation reveals wide differences in gene expression and pathways regulating milk synthesis between Jersey and Kashmiri cattle.</strong> <span class="year">2019</span> — <em>PLOS ONE</em>. </li>
-          <li><strong>Comparative milk proteome analysis of Kashmiri and Jersey cattle identifies differential expression of key proteins involved in immune system regulation and milk quality.</strong> <span class="year">2020</span> — <em>BMC Genomics</em>. </li>
-          <li><strong>Gene expression and antibody response in chicken against Salmonella Typhimurium challenge.</strong> <span class="year">2018</span> — <em>Poultry Science</em>. </li>
-          <li><strong>Salmonella typhimurium in poultry: a review.</strong> <span class="year">2017</span> — <em>World's Poultry Science Journal</em>. </li>
-          <li><strong>Impact of High Glycine Tyrosine Kap Gene on Cashmere Fibre Trait Characteristics.</strong> <span class="year">2017</span> — <em>Biotechnology Journal International</em>. </li>
-          <li><strong>Expression Kinetics of NRAMP gene family and immuno‑pathological manifestations against the challenge of Salmonella Typhimurium in poultry.</strong> <span class="year">2017</span> — <em>BMC Veterinary Research</em>. </li>
-        </ul>
+      <!-- LEFT COLUMN -->
+      <div class="grid-left">
+        <!-- Current research focus -->
+        <section id="research-focus" class="reveal">
+          <h2>Current Research Focus</h2>
+          <p class="muted">
+            I study extracellular vesicles from gut microbes and milk and their roles in host metabolism, immunity, and early-life development.
+            I combine EV isolation, omics, and functional assays in cells and mice.
+          </p>
+          <h3>Key questions</h3>
+          <ul class="list">
+            <li>How do microbial EV cargo profiles differ between early gut colonizers such as <em>Bifidobacterium infantis</em> and <em>E. coli</em> strains?</li>
+            <li>How do EVs alter insulin, AMPK, and inflammatory signaling in host tissues?</li>
+            <li>How does EV signaling connect gut microbiota to neural processes such as axonal growth and microglial surveillance?</li>
+          </ul>
 
-        <h2>Awards & Honors</h2>
-        <ul class="list">
-          <li><span class="year">2025</span> — M‑PACT FUTURES Scholar travel award, University of Michigan (fully funded conference participation)</li>
-          <li><span class="year">2024</span> — Best Poster Award, NPOD 10th Annual Research Symposium, UNL</li>
-          <li><span class="year">2020</span> — Token of Appreciation, Registrar GMC Doda, India</li>
-          <li><span class="year">2020</span> — ESACT Scholarship for Animal Cell Technology course</li>
-          <li><span class="year">2019</span> — GYAN Scholarship award, SciGenom Research Foundation</li>
-          <li><span class="year">2018</span> — Certificate of Achievement, Merck (Cell Culture Quiz)</li>
-          <li><span class="year">2018</span> — Acceptance for Raman‑Charpak Visiting Fellowship, INRA France (honored, though not secured)</li>
-          <li><span class="year">2011</span> — NCC C Certificate (National Cadet Corps)</li>
-        </ul>
-      </section>
+          <h3>Ongoing projects</h3>
+          <ul class="list">
+            <li>
+              <strong>EV-driven modulation of metabolic pathways</strong><br>
+              Multi-omics mapping of microbial EV cargo and host pathway responses with emphasis on insulin and AMPK signaling.
+            </li>
+            <li>
+              <strong>Early-life EVs and brain–gut links</strong><br>
+              Integration of EV sRNA data with pathways tied to synaptic refinement, oligodendrocyte maturation, and microglial activity.
+            </li>
+            <li>
+              <strong>EV biodistribution and clearance</strong><br>
+              Tracking of EV fate in Cre reporter mice to define entry routes, tissue targeting, and clearance profiles.
+            </li>
+          </ul>
+        </section>
 
-      <!-- Teaching & Contact -->
-      <section class="reveal">
-        <h2>Teaching Experience</h2>
-        <div class="teach-item">
-          <strong>Fall 2025 — Staff Teaching Assistant, Graduate Course: Molecular Nutrition Techniques (NHS 821)</strong>
-          <small>Department of Nutrition & Health Sciences, UNL</small>
-          <p class="muted">Facilitated lab sessions in nucleic acid extraction, PCR, cell culture, protein isolation, and Western blotting. Delivered hands‑on training to graduate students.</p>
-        </div>
-        <div class="teach-item">
-          <strong>Fall 2024 — Staff Teaching Assistant, Graduate Course: Molecular Nutrition Techniques (NHS 821)</strong>
-          <small>Department of Nutrition & Health Sciences, UNL</small>
-          <p class="muted">Led lab sessions on nucleic acid extraction, PCR, cell culture, protein extraction, and Western blotting. Provided hands‑on instruction to enhance methodological proficiency.</p>
-        </div>
-        <div class="teach-item">
-          <strong>Fall 2023 — Staff Teaching Assistant, Graduate Course: Molecular Nutrition Techniques (NHS 821)</strong>
-          <small>Department of Nutrition & Health Sciences, UNL</small>
-          <p class="muted">Facilitated lab sessions and instructed graduate students in molecular biology techniques including PCR, nucleic acid extraction, protein extraction, and Western blotting.</p>
-        </div>
+        <!-- Future research -->
+        <section id="future-research" class="reveal">
+          <h2>Future Research Directions</h2>
+          <p class="muted">
+            I plan to build an independent program on microbial and milk EVs as cross-kingdom regulators of host metabolism and immune tone.
+          </p>
+          <h3>Planned themes</h3>
+          <ul class="list">
+            <li>
+              <strong>EV-based metabolic interventions</strong><br>
+              Use microbial EVs and engineered EV cargo to tune insulin sensitivity, lipid handling, and inflammatory set points in obesity and diabetes models.
+            </li>
+            <li>
+              <strong>EV communication in early-life microbiome assembly</strong><br>
+              Define how milk and microbial EVs guide colonizer selection, mucosal immunity, and long-term metabolic risk.
+            </li>
+            <li>
+              <strong>Engineered probiotic EVs</strong><br>
+              Develop probiotic strains that package defined effectors, such as Cre or metabolic regulators, into EVs for targeted delivery.
+            </li>
+            <li>
+              <strong>EVs at neuroimmune interfaces</strong><br>
+              Extend gut EV findings into circuits that couple metabolism, microglia, and neural development.
+            </li>
+          </ul>
+        </section>
 
-        <h2>Invited / Guest Lectures</h2>
-        <ul class="list">
-          <li><span class="year">2024</span> — “Bacterial Extracellular Vesicles: message in a bubble” (Graduate lecture, UNL)</li>
-          <li><span class="year">2023</span> — “Isolation and characterization of Bacterial Extracellular Vesicles” (Graduate lecture, UNL)</li>
-          <li><span class="year">2020</span> — Lecture on “Basic biomedical techniques” at Government Medical College, Doda (ICMR‑sponsored training, India)</li>
-        </ul>
+        <!-- Publications -->
+        <section id="publications" class="reveal">
+          <h2>Selected Publications</h2>
+          <p class="muted">
+            Representative publications from 2016–2025.
+            Full list on <a target="_blank" rel="noopener" href="https://scholar.google.co.in/citations?user=n3qT4_0AAAAJ&hl=en">Google Scholar</a>.
+          </p>
+          <ul class="list">
+            <li id="pub-evcna" class="pub-item">
+              <div class="pub-title">
+                Bovine milk extracellular vesicles, prepared by ultracentrifugation, contain microbial mRNA which does not accumulate in human plasma following milk consumption.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2025</span> — <em>EVCNA</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
 
-        <div class="sep" role="presentation"></div>
-        <h2>Contact</h2>
-        <p class="muted">Zempleni Lab, Department of Nutrition & Health Sciences<br>
-        University of Nebraska–Lincoln • 316 Ruth Leverton Hall, Lincoln, NE 68583‑0806<br>
-        Email: <a href="mailto:pmumtaz2@unl.edu">pmumtaz2@unl.edu</a> • Phone: (+1) 402‑808‑6379<br>
-        <a target="_blank" rel="noopener" href="https://scholar.google.co.in/citations?user=n3qT4_0AAAAJ&hl=en">Google Scholar</a> • <a href="https://orcid.org/">ORCID</a> • <a href="https://github.com/">GitHub</a>
-        </p>
-      </section>
+            <li id="pub-gutmicrobes-2025" class="pub-item">
+              <div class="pub-title">
+                Divergence of gut bacteria through the selection of genomic variants implicated in the metabolism of sugars, amino acids, and purines by small extracellular vesicles in milk.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2025</span> — <em>Gut Microbes</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-iip-2024" class="pub-item">
+              <div class="pub-title">
+                Comparative transcriptome analysis of <em>E. coli</em> and <em>Staphylococcus aureus</em> infected goat mammary epithelial cells reveals genes associated with infection.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2024</span> — <em>International Immunopharmacology</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-bmcg-2022-lnc-milk" class="pub-item">
+              <div class="pub-title">
+                Mammary epithelial cell transcriptome reveals potential roles of lncRNAs in regulating milk synthesis pathways in Jersey and Kashmiri cattle.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2022</span> — <em>BMC Genomics</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-mpath-2022" class="pub-item">
+              <div class="pub-title">
+                Expression of lncRNAs in response to bacterial infections of goat mammary epithelial cells reveals insights into mammary gland diseases.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2022</span> — <em>Microbial Pathogenesis</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-bpo-2017-lnc-immunity" class="pub-item">
+              <div class="pub-title">
+                LncRNAs and immunity: watchdogs for host pathogen interactions.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2017</span> — <em>Biological Procedures Online</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-bpo-2020-circRNA" class="pub-item">
+              <div class="pub-title">
+                Circular RNAs: From biogenesis to functional paradox.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2020</span> — <em>Biological Procedures Online</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-ccs-2023" class="pub-item">
+              <div class="pub-title">
+                Scavenger receptor B1 facilitates the endocytosis of <em>Escherichia coli</em> via TLR4 signaling in goat mammary gland infection.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2023</span> — <em>Cell Communication and Signaling</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-ccs-2022-sr-review" class="pub-item">
+              <div class="pub-title">
+                Scavenger receptors in host defense: from functional aspects to mode of action.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2022</span> — <em>Cell Communication and Signaling</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-ncrr-2016" class="pub-item">
+              <div class="pub-title">
+                Long non-coding RNAs: mechanism of action and functional utility.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2016</span> — <em>Non-Coding RNA Research</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-plosone-2019" class="pub-item">
+              <div class="pub-title">
+                Comparative transcriptome analysis of mammary epithelial cells at different stages of lactation reveals wide differences in gene expression and pathways regulating milk synthesis between Jersey and Kashmiri cattle.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2019</span> — <em>PLOS ONE</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-bmcg-2020-proteome" class="pub-item">
+              <div class="pub-title">
+                Comparative milk proteome analysis of Kashmiri and Jersey cattle identifies differential expression of key proteins involved in immune system regulation and milk quality.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2020</span> — <em>BMC Genomics</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-poultrysci-2018" class="pub-item">
+              <div class="pub-title">
+                Gene expression and antibody response in chicken against <em>Salmonella Typhimurium</em> challenge.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2018</span> — <em>Poultry Science</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-wpsj-2017" class="pub-item">
+              <div class="pub-title">
+                <em>Salmonella typhimurium</em> in poultry: a review.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2017</span> — <em>World's Poultry Science Journal</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-bji-2017" class="pub-item">
+              <div class="pub-title">
+                Impact of High Glycine Tyrosine Kap Gene on Cashmere Fibre Trait Characteristics.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2017</span> — <em>Biotechnology Journal International</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+
+            <li id="pub-bmcv-2017" class="pub-item">
+              <div class="pub-title">
+                Expression kinetics of NRAMP gene family and immuno-pathological manifestations against the challenge of <em>Salmonella Typhimurium</em> in poultry.
+              </div>
+              <div class="pub-venue">
+                <span class="year">2017</span> — <em>BMC Veterinary Research</em>
+              </div>
+              <div class="pub-metrics">
+                <span><strong>Citations:</strong> <span class="pub-citations">—</span></span>
+                <span><strong>Impact factor:</strong> <span class="pub-if">—</span></span>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Presentations -->
+        <section id="presentations" class="reveal">
+          <h2>Invited Talks and Presentations</h2>
+          <ul class="sub-list">
+            <li>
+              <strong>M-PACT FUTURES Scholar talk</strong><br>
+              University of Michigan, 2025. Oral presentation on microbial EVs and host metabolic pathways.
+            </li>
+            <li>
+              <strong>“Bacterial Extracellular Vesicles: message in a bubble”</strong><br>
+              Graduate lecture, University of Nebraska–Lincoln, 2024.
+            </li>
+            <li>
+              <strong>“Isolation and characterization of Bacterial Extracellular Vesicles”</strong><br>
+              Graduate lecture, University of Nebraska–Lincoln, 2023.
+            </li>
+            <li>
+              <strong>“Basic biomedical techniques”</strong><br>
+              Government Medical College Doda, ICMR-sponsored training, 2020.
+            </li>
+          </ul>
+        </section>
+
+        <!-- Posters -->
+        <section id="posters" class="reveal">
+          <h2>Posters and Conference Contributions</h2>
+          <ul class="sub-list">
+            <li>
+              <strong>NPOD 10th Annual Research Symposium, UNL</strong> — 2024<br>
+              Best Poster Award. Poster on microbial EVs, metabolic outcomes, and multi-omics integration.
+            </li>
+            <li>
+              <strong>EV- and microbiome-focused meetings</strong><br>
+              Posters on milk EVs, early-life colonizers, and host–microbe signaling (titles and links can be added here).
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="grid-right">
+        <!-- Teaching -->
+        <section id="teaching" class="reveal">
+          <h2>Teaching Experience</h2>
+          <p class="muted">
+            I link experimental design with biological questions and train students in molecular and cell biology techniques.
+          </p>
+
+          <div class="teach-item">
+            <strong>Fall 2025 — Staff Teaching Assistant, Graduate Course: Molecular Nutrition Techniques (NHS 821)</strong>
+            <small>Department of Nutrition &amp; Health Sciences, UNL</small>
+            <p class="muted">
+              Designed and led lab sessions in nucleic acid extraction, PCR, cell culture, protein isolation, and Western blotting.
+              Guided students through data recording and interpretation.
+            </p>
+          </div>
+
+          <div class="teach-item">
+            <strong>Fall 2024 — Staff Teaching Assistant, Graduate Course: Molecular Nutrition Techniques (NHS 821)</strong>
+            <small>Department of Nutrition &amp; Health Sciences, UNL</small>
+            <p class="muted">
+              Led small-group training in cell culture, protein extraction, and Western blotting.
+              Helped students connect experimental steps with molecular outcomes.
+            </p>
+          </div>
+
+          <div class="teach-item">
+            <strong>Fall 2023 — Staff Teaching Assistant, Graduate Course: Molecular Nutrition Techniques (NHS 821)</strong>
+            <small>Department of Nutrition &amp; Health Sciences, UNL</small>
+            <p class="muted">
+              Introduced graduate students to PCR, nucleic acid extraction, protein extraction, and Western blotting.
+            </p>
+          </div>
+
+          <h3>Mentoring</h3>
+          <ul class="sub-list">
+            <li>Supervision of undergraduate and graduate projects on EV isolation, luciferase assays, and omics analysis.</li>
+            <li>Guidance on reading primary literature and presenting data with confidence.</li>
+          </ul>
+
+          <h3>Teaching materials</h3>
+          <ul class="sub-list">
+            <li>Hands-on protocols for EV isolation, transfection, and luciferase assays.</li>
+            <li>Worksheets for experimental planning and omics interpretation.</li>
+          </ul>
+        </section>
+
+        <!-- Awards -->
+        <section class="reveal">
+          <h2>Awards &amp; Honors</h2>
+          <ul class="list">
+            <li><span class="year">2025</span> — M-PACT FUTURES Scholar travel award, University of Michigan (fully funded conference participation)</li>
+            <li><span class="year">2024</span> — Best Poster Award, NPOD 10th Annual Research Symposium, UNL</li>
+            <li><span class="year">2020</span> — Token of Appreciation, Registrar GMC Doda, India</li>
+            <li><span class="year">2020</span> — ESACT Scholarship for Animal Cell Technology course</li>
+            <li><span class="year">2019</span> — GYAN Scholarship, SciGenom Research Foundation</li>
+            <li><span class="year">2018</span> — Certificate of Achievement, Merck (Cell Culture Quiz)</li>
+            <li><span class="year">2018</span> — Acceptance for Raman-Charpak Visiting Fellowship, INRA France</li>
+            <li><span class="year">2011</span> — NCC C Certificate (National Cadet Corps)</li>
+          </ul>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="reveal">
+          <h2>Contact</h2>
+          <p class="muted">
+            Zempleni Lab, Department of Nutrition &amp; Health Sciences<br>
+            University of Nebraska–Lincoln<br>
+            316 Ruth Leverton Hall, Lincoln, NE 68583-0806
+          </p>
+          <p class="muted">
+            Email: <a href="mailto:pmumtaz2@unl.edu">pmumtaz2@unl.edu</a><br>
+            Phone: (+1) 402-808-6379
+          </p>
+          <p class="muted">
+            <a target="_blank" rel="noopener" href="https://scholar.google.co.in/citations?user=n3qT4_0AAAAJ&hl=en">Google Scholar</a> ·
+            <a target="_blank" rel="noopener" href="https://orcid.org/">ORCID</a> ·
+            <a target="_blank" rel="noopener" href="https://github.com/">GitHub</a> ·
+            <a target="_blank" rel="noopener" href="https://www.linkedin.com/">LinkedIn</a>
+          </p>
+        </section>
+      </div>
     </div>
 
     <footer class="reveal">
@@ -258,8 +868,80 @@
     </footer>
   </div>
 
+  <!-- LEFT SIDE PDF SLIDER -->
+  <div id="left-slider">
+    <div class="slider-heading">Latest Publications</div>
+    <div class="slider-window">
+      <div class="slider-track">
+        <div class="slider-card">
+          <a href="paper1.pdf" target="_blank">
+            <img src="paper1_thumb.jpg" alt="Publication 1 thumbnail">
+            <p><strong>Paper 1</strong><br>2025</p>
+          </a>
+        </div>
+        <div class="slider-card">
+          <a href="paper2.pdf" target="_blank">
+            <img src="paper2_thumb.jpg" alt="Publication 2 thumbnail">
+            <p><strong>Paper 2</strong><br>2025</p>
+          </a>
+        </div>
+        <div class="slider-card">
+          <a href="paper3.pdf" target="_blank">
+            <img src="paper3_thumb.jpg" alt="Publication 3 thumbnail">
+            <p><strong>Paper 3</strong><br>2025</p>
+          </a>
+        </div>
+        <div class="slider-card">
+          <a href="paper4.pdf" target="_blank">
+            <img src="paper4_thumb.jpg" alt="Publication 4 thumbnail">
+            <p><strong>Paper 4</strong><br>2024</p>
+          </a>
+        </div>
+        <div class="slider-card">
+          <a href="paper5.pdf" target="_blank">
+            <img src="paper5_thumb.jpg" alt="Publication 5 thumbnail">
+            <p><strong>Paper 5</strong><br>2024</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE PHOTO/NEWS SLIDER -->
+  <div id="right-slider">
+    <div class="slider-heading">Latest News</div>
+    <div class="slider-window">
+      <div class="slider-track">
+        <div class="slider-card">
+          <img src="news1.jpg" alt="News item 1">
+          <p><strong>News item 1</strong></p>
+        </div>
+        <div class="slider-card">
+          <img src="news2.jpg" alt="News item 2">
+          <p><strong>News item 2</strong></p>
+        </div>
+        <div class="slider-card">
+          <img src="news3.jpg" alt="News item 3">
+          <p><strong>News item 3</strong></p>
+        </div>
+        <div class="slider-card">
+          <img src="news4.jpg" alt="News item 4">
+          <p><strong>News item 4</strong></p>
+        </div>
+        <div class="slider-card">
+          <img src="news5.jpg" alt="News item 5">
+          <p><strong>News item 5</strong></p>
+        </div>
+        <div class="slider-card">
+          <img src="news6.jpg" alt="News item 6">
+          <p><strong>News item 6</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // theme init
+    // theme
     const root = document.documentElement;
     const btn = document.getElementById('themeToggle');
     const saved = localStorage.getItem('ptm_theme');
@@ -281,96 +963,82 @@
     const d = new Date();
     document.getElementById('updated').textContent = d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'});
 
-    // simple reveal on scroll
+    // reveal
     const obs = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); } });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    // ====== EDIT THESE VALUES FROM GOOGLE SCHOLAR / JOURNAL SITES ======
+    const metricsData = {
+      totalCitations: 0,             // set from Google Scholar
+      totalIF: 0.0,                  // sum of journal impact factors
+      yearly: [
+        // { year: 2016, citations: 5 },
+        // { year: 2017, citations: 15 },
+        // ...
+      ],
+      publications: {
+        // use Google Scholar and journal reports
+        // example:
+        // 'pub-evcna': { citations: 3, impactFactor: 4.0 },
+        // 'pub-gutmicrobes-2025': { citations: 2, impactFactor: 8.0 },
+      }
+    };
+    // ================================================================
+
+    // apply metrics
+    if(typeof metricsData.totalCitations === 'number'){
+      document.getElementById('totalCitations').textContent = metricsData.totalCitations.toString();
+    }
+    if(typeof metricsData.totalIF === 'number'){
+      document.getElementById('totalIF').textContent = metricsData.totalIF.toFixed(1);
+    }
+
+    // chart
+    const chartRoot = document.getElementById('citationChart');
+    if(chartRoot && Array.isArray(metricsData.yearly) && metricsData.yearly.length){
+      const maxCites = Math.max(...metricsData.yearly.map(x=>x.citations || 0), 1);
+      metricsData.yearly.forEach(item=>{
+        const barWrap = document.createElement('div');
+        barWrap.className = 'chart-bar';
+
+        const bar = document.createElement('div');
+        bar.className = 'chart-bar-inner';
+        const heightPct = (item.citations / maxCites) * 100;
+        bar.style.height = heightPct + '%';
+
+        const labelYear = document.createElement('span');
+        labelYear.textContent = item.year.toString();
+
+        const labelC = document.createElement('span');
+        labelC.textContent = item.citations.toString();
+
+        barWrap.appendChild(bar);
+        barWrap.appendChild(labelC);
+        barWrap.appendChild(labelYear);
+        chartRoot.appendChild(barWrap);
+      });
+    } else if(chartRoot){
+      chartRoot.innerHTML = '<span class="muted" style="font-size:12px;">Add yearly citation data in the script to view the chart.</span>';
+    }
+
+    // per-publication metrics
+    if(metricsData.publications){
+      Object.keys(metricsData.publications).forEach(id=>{
+        const data = metricsData.publications[id];
+        const li = document.getElementById(id);
+        if(!li) return;
+        const cSpan = li.querySelector('.pub-citations');
+        const ifSpan = li.querySelector('.pub-if');
+        if(cSpan && typeof data.citations === 'number'){
+          cSpan.textContent = data.citations.toString();
+        }
+        if(ifSpan && typeof data.impactFactor === 'number'){
+          ifSpan.textContent = data.impactFactor.toFixed(1);
+        }
+      });
+    }
   </script>
 </body>
-  <!-- LEFT SIDE PDF SLIDER -->
-<div id="left-slider">
-  <div class="slider-heading">Latest Publications</div>
-  <div class="slider-window">
-    <div class="slider-track">
-
-      <!-- Your left tiles here -->
-      <div class="slider-card">
-        <a href="paper1.pdf" target="_blank">
-          <img src="paper1_thumb.jpg">
-          <p><strong>Paper 1</strong><br>2025</p>
-        </a>
-      </div>
-
-      <div class="slider-card">
-        <a href="paper2.pdf" target="_blank">
-          <img src="paper2_thumb.jpg">
-          <p><strong>Paper 2</strong><br>2025</p>
-        </a>
-      </div>
-
-        <div class="slider-card">
-        <a href="paper3.pdf" target="_blank">
-          <img src="paper3_thumb.jpg">
-          <p><strong>Paper 3</strong><br>2025</p>
-        </a>
-      </div>
-
-      <div class="slider-card">
-        <a href="paper4.pdf" target="_blank">
-          <img src="paper4_thumb.jpg">
-          <p><strong>Paper 4</strong><br>2024</p>
-        </a>
-      </div>
-      
-      <div class="slider-card">
-        <a href="paper5.pdf" target="_blank">
-          <img src="paper5_thumb.jpg">
-          <p><strong>Paper 5</strong><br>2024</p>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- RIGHT SIDE PHOTO/NEWS SLIDER -->
-<div id="right-slider">
-  <div class="slider-heading">Latest News</div>
-  <div class="slider-window">
-    <div class="slider-track">
-
-      <!-- Your right tiles here -->
-      <div class="slider-card">
-        <img src="news1.jpg">
-        <p><strong>News item 1</strong></p>
-      </div>
-
-      <div class="slider-card">
-        <img src="news2.jpg">
-        <p><strong>News item 2</strong></p>
-      </div>
-
-      <div class="slider-card">
-        <img src="news3.jpg">
-        <p><strong>News item 2</strong></p>
-      </div>
-      
-      <div class="slider-card">
-        <img src="news4.jpg">
-        <p><strong>News item 1</strong></p>
-      </div>
-      
-      <div class="slider-card">
-        <img src="news5.jpg">
-        <p><strong>News item 1</strong></p>
-      </div>
-      
-       <div class="slider-card">
-        <img src="news6.jpg">
-        <p><strong>News item 1</strong></p>
-      </div>  
-      
-    </div>
-  </div>
-</div>
 </html>
