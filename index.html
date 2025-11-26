@@ -971,20 +971,90 @@
 
     // ====== EDIT THESE VALUES FROM GOOGLE SCHOLAR / JOURNAL SITES ======
     const metricsData = {
-      totalCitations: 0,             // set from Google Scholar
-      totalIF: 0.0,                  // sum of journal impact factors
-      yearly: [
-        // { year: 2016, citations: 5 },
-        // { year: 2017, citations: 15 },
-        // ...
-      ],
-      publications: {
-        // use Google Scholar and journal reports
-        // example:
-        // 'pub-evcna': { citations: 3, impactFactor: 4.0 },
-        // 'pub-gutmicrobes-2025': { citations: 2, impactFactor: 8.0 },
-      }
-    };
+  // from the top of your Google Scholar box
+  totalCitations: 981,
+  totalIF: 80.3,   // example value, replace with your own sum
+
+  // from the “Citations per year” bars (hover each bar for the exact value)
+  yearly: [
+    { year: 2018, citations: 25 },   // replace 18 with the real value
+    { year: 2019, citations: 56 },   // …
+    { year: 2020, citations: 82 },
+    { year: 2021, citations: 133 },
+    { year: 2022, citations: 169 },
+    { year: 2023, citations: 163 },
+    { year: 2024, citations: 176 },
+    { year: 2025, citations: 156 }
+  ],
+
+  // per-paper metrics (examples, edit with real numbers)
+  publications: {
+    'pub-evcna': {
+      citations: 1,
+      impactFactor: 4.0
+    },
+    'pub-gutmicrobes-2025': {
+      citations: 10,
+      impactFactor: 8.0
+    },
+    'pub-iip-2024': {
+      citations: 7,
+      impactFactor: 5.6
+    },
+    'pub-bmcg-2022-lnc-milk': {
+      citations: 20,
+      impactFactor: 4.3
+    },
+    'pub-mpath-2022': {
+      citations: 15,
+      impactFactor: 3.5
+    },
+    'pub-bpo-2017-lnc-immunity': {
+      citations: 60,
+      impactFactor: 3.9
+    },
+    'pub-bpo-2020-circRNA': {
+      citations: 120,
+      impactFactor: 3.9
+    },
+    'pub-ccs-2023': {
+      citations: 30,
+      impactFactor: 6.0
+    },
+    'pub-ccs-2022-sr-review': {
+      citations: 50,
+      impactFactor: 6.0
+    },
+    'pub-ncrr-2016': {
+      citations: 90,
+      impactFactor: 3.0
+    },
+    'pub-plosone-2019': {
+      citations: 80,
+      impactFactor: 3.7
+    },
+    'pub-bmcg-2020-proteome': {
+      citations: 40,
+      impactFactor: 4.3
+    },
+    'pub-poultrysci-2018': {
+      citations: 55,
+      impactFactor: 4.4
+    },
+    'pub-wpsj-2017': {
+      citations: 70,
+      impactFactor: 2.2
+    },
+    'pub-bji-2017': {
+      citations: 10,
+      impactFactor: 1.0
+    },
+    'pub-bmcv-2017': {
+      citations: 50,
+      impactFactor: 3.1
+    }
+  }
+};
     // ================================================================
 
     // apply metrics
