@@ -259,19 +259,19 @@
     .chart-wrap h3{
       margin-bottom:6px;
     }
-    .chart{
+   .chart{
   position:relative;
-  height:160px;
-  border-radius:10px;
+  height:180px;
+  border-radius:12px;
   border:1px solid var(--border);
-  padding:8px 8px 22px;
-  display:flex;
-  align-items:flex-end;
-  gap:6px;
+  padding:0;
   background:radial-gradient(circle at top,var(--accent-soft) 0,transparent 55%);
   overflow:hidden;
 }
-
+.chart svg{
+  width:100%;
+  height:100%;
+}
 /* container for each bar */
 .chart-bar{
   flex:1;
@@ -1044,49 +1044,49 @@
 
   const svgNS = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(svgNS, 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
+  // shorter height so bars are visible
+  svg.setAttribute('viewBox', '0 0 100 40');
   svg.setAttribute('preserveAspectRatio', 'none');
 
   const points = [];
 
   yearly.forEach((d, idx) => {
-    const band = 100 / n;          // width of each year slot (in viewBox units)
+    const band = 100 / n;          // width of each year slot
     const barWidth = band * 0.5;   // bar is 50% of slot
-    const cx = band * idx + band / 2;  // center x of this bar
+    const cx = band * idx + band / 2;
 
-    // leave some top and bottom margins inside SVG
-    const topMargin = 5;
-    const bottomMargin = 15;
+    const topMargin = 4;
+    const labelsTop = 24;          // everything below this is labels
+    const plotHeight = labelsTop - topMargin;
 
-    const topY = topMargin + (1 - d.citations / maxCites) * (100 - topMargin - bottomMargin);
-    const barHeight = 100 - bottomMargin - topY;
+    const ratio = d.citations / maxCites;
+    const topY = topMargin + (1 - ratio) * plotHeight;
+    const barHeight = labelsTop - topY;
 
-    // green -> red based on citation ratio
-    const ratio = d.citations / maxCites;           // 0..1
+    // green -> red color
     const hueStart = 130; // green
     const hueEnd = 0;     // red
     const hue = hueStart + (hueEnd - hueStart) * ratio;
     const color = `hsl(${hue}, 75%, 45%)`;
 
-    // bar rect
+    // bar
     const rect = document.createElementNS(svgNS, 'rect');
     rect.setAttribute('x', cx - barWidth / 2);
     rect.setAttribute('y', topY);
     rect.setAttribute('width', barWidth);
     rect.setAttribute('height', barHeight);
-    rect.setAttribute('rx', 2);
+    rect.setAttribute('rx', 1.5);
     rect.setAttribute('fill', color);
     svg.appendChild(rect);
 
-    // collect point for line
     points.push(`${cx},${topY}`);
 
     // citation label
     const tC = document.createElementNS(svgNS, 'text');
     tC.setAttribute('x', cx);
-    tC.setAttribute('y', 100 - bottomMargin + 4);
+    tC.setAttribute('y', labelsTop + 4);
     tC.setAttribute('text-anchor', 'middle');
-    tC.setAttribute('font-size', '4');
+    tC.setAttribute('font-size', '3.5');
     tC.setAttribute('fill', 'rgba(100,116,139,1)');
     tC.textContent = d.citations.toString();
     svg.appendChild(tC);
@@ -1094,7 +1094,7 @@
     // year label
     const tY = document.createElementNS(svgNS, 'text');
     tY.setAttribute('x', cx);
-    tY.setAttribute('y', 100 - 3);
+    tY.setAttribute('y', 38);
     tY.setAttribute('text-anchor', 'middle');
     tY.setAttribute('font-size', '3.5');
     tY.setAttribute('fill', 'rgba(148,163,184,1)');
@@ -1102,20 +1102,19 @@
     svg.appendChild(tY);
   });
 
-  // line connecting bar tops
+  // line joining bar tops
   const polyline = document.createElementNS(svgNS, 'polyline');
   polyline.setAttribute('fill', 'none');
   polyline.setAttribute('stroke', 'rgba(148,163,184,0.95)');
-  polyline.setAttribute('stroke-width', '1.2');
+  polyline.setAttribute('stroke-width', '0.8');
   polyline.setAttribute('points', points.join(' '));
   svg.appendChild(polyline);
 
   chartRoot.innerHTML = '';
   chartRoot.appendChild(svg);
 })();
-
-
-  // ===== 7. PER-PUBLICATION METRICS FILL =====
+  
+    // ===== 7. PER-PUBLICATION METRICS FILL =====
   if(metricsData.publications){
     Object.keys(metricsData.publications).forEach(id=>{
       const data = metricsData.publications[id];
