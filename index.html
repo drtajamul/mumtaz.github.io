@@ -1027,69 +1027,93 @@
       metricsData.totalIF.toFixed(1);
   }
 
-  // ===== 6. YEARLY CITATION CHART (BARS + GREEN→RED + LINE) =====
+  // ===== 6. YEARLY CITATION CHART (SVG bars + line, green→red) =====
+(function() {
   const chartRoot = document.getElementById('citationChart');
-
-  if (chartRoot && Array.isArray(metricsData.yearly) && metricsData.yearly.length) {
-    const yearly = metricsData.yearly;
-    const maxCites = Math.max(...yearly.map(x => x.citations || 0), 1);
-
-    yearly.forEach((item) => {
-      const barWrap = document.createElement('div');
-      barWrap.className = 'chart-bar';
-
-      const bar = document.createElement('div');
-      bar.className = 'chart-bar-inner';
-
-      const heightPct = (item.citations / maxCites) * 100;
-      bar.style.height = heightPct + '%';
-
-      // green → red based on citations
-      const ratio = item.citations / maxCites; // 0..1
-      const hueStart = 130; // green
-      const hueEnd = 0;     // red
-      const hue = hueStart + (hueEnd - hueStart) * ratio;
-      const color = `hsl(${hue}, 75%, 45%)`;
-      bar.style.background = color;
-
-      const labelYear = document.createElement('span');
-      labelYear.textContent = item.year.toString();
-
-      const labelC = document.createElement('span');
-      labelC.textContent = item.citations.toString();
-
-      barWrap.appendChild(bar);
-      barWrap.appendChild(labelC);
-      barWrap.appendChild(labelYear);
-      chartRoot.appendChild(barWrap);
-    });
-
-    // SVG line connecting bar tops
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('class', 'chart-line');
-    svg.setAttribute('viewBox', '0 0 100 100');
-    svg.setAttribute('preserveAspectRatio', 'none');
-
-    const polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
-    polyline.setAttribute('fill', 'none');
-    polyline.setAttribute('stroke', 'rgba(148,163,184,0.9)');
-    polyline.setAttribute('stroke-width', '1.5');
-
-    const n = yearly.length;
-    const points = yearly.map((item, index) => {
-      const x = ((index + 0.5) / n) * 100;
-      const y = 100 - (item.citations / maxCites) * 100;
-      return `${x},${y}`;
-    }).join(' ');
-
-    polyline.setAttribute('points', points);
-    svg.appendChild(polyline);
-    chartRoot.appendChild(svg);
-
-  } else if (chartRoot) {
-    chartRoot.innerHTML =
-      '<span class="muted" style="font-size:12px;">Add yearly citation data in metricsData.yearly to view the chart.</span>';
+  if (!chartRoot || !Array.isArray(metricsData.yearly) || !metricsData.yearly.length) {
+    if (chartRoot) {
+      chartRoot.innerHTML =
+        '<span class="muted" style="font-size:12px;padding:8px;display:block;">Add yearly citation data in metricsData.yearly to view the chart.</span>';
+    }
+    return;
   }
+
+  const yearly = metricsData.yearly;
+  const maxCites = Math.max(...yearly.map(d => d.citations || 0), 1);
+  const n = yearly.length;
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('viewBox', '0 0 100 100');
+  svg.setAttribute('preserveAspectRatio', 'none');
+
+  const points = [];
+
+  yearly.forEach((d, idx) => {
+    const band = 100 / n;          // width of each year slot (in viewBox units)
+    const barWidth = band * 0.5;   // bar is 50% of slot
+    const cx = band * idx + band / 2;  // center x of this bar
+
+    // leave some top and bottom margins inside SVG
+    const topMargin = 5;
+    const bottomMargin = 15;
+
+    const topY = topMargin + (1 - d.citations / maxCites) * (100 - topMargin - bottomMargin);
+    const barHeight = 100 - bottomMargin - topY;
+
+    // green -> red based on citation ratio
+    const ratio = d.citations / maxCites;           // 0..1
+    const hueStart = 130; // green
+    const hueEnd = 0;     // red
+    const hue = hueStart + (hueEnd - hueStart) * ratio;
+    const color = `hsl(${hue}, 75%, 45%)`;
+
+    // bar rect
+    const rect = document.createElementNS(svgNS, 'rect');
+    rect.setAttribute('x', cx - barWidth / 2);
+    rect.setAttribute('y', topY);
+    rect.setAttribute('width', barWidth);
+    rect.setAttribute('height', barHeight);
+    rect.setAttribute('rx', 2);
+    rect.setAttribute('fill', color);
+    svg.appendChild(rect);
+
+    // collect point for line
+    points.push(`${cx},${topY}`);
+
+    // citation label
+    const tC = document.createElementNS(svgNS, 'text');
+    tC.setAttribute('x', cx);
+    tC.setAttribute('y', 100 - bottomMargin + 4);
+    tC.setAttribute('text-anchor', 'middle');
+    tC.setAttribute('font-size', '4');
+    tC.setAttribute('fill', 'rgba(100,116,139,1)');
+    tC.textContent = d.citations.toString();
+    svg.appendChild(tC);
+
+    // year label
+    const tY = document.createElementNS(svgNS, 'text');
+    tY.setAttribute('x', cx);
+    tY.setAttribute('y', 100 - 3);
+    tY.setAttribute('text-anchor', 'middle');
+    tY.setAttribute('font-size', '3.5');
+    tY.setAttribute('fill', 'rgba(148,163,184,1)');
+    tY.textContent = d.year.toString();
+    svg.appendChild(tY);
+  });
+
+  // line connecting bar tops
+  const polyline = document.createElementNS(svgNS, 'polyline');
+  polyline.setAttribute('fill', 'none');
+  polyline.setAttribute('stroke', 'rgba(148,163,184,0.95)');
+  polyline.setAttribute('stroke-width', '1.2');
+  polyline.setAttribute('points', points.join(' '));
+  svg.appendChild(polyline);
+
+  chartRoot.innerHTML = '';
+  chartRoot.appendChild(svg);
+})();
+
 
   // ===== 7. PER-PUBLICATION METRICS FILL =====
   if(metricsData.publications){
