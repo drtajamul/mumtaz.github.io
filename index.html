@@ -449,6 +449,63 @@ header .avatar {
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
+.photo-strip{
+  margin-top:16px;
+  padding:8px 0 0;
+  border-top:1px solid rgba(148,163,184,0.3);
+}
+
+.photo-strip-heading{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:6px;
+  color:#f9fafb;
+}
+
+.photo-strip-inner{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.photo-arrow{
+  border:1px solid rgba(148,163,184,0.5);
+  background:transparent;
+  color:#f9fafb;
+  width:26px;
+  height:26px;
+  border-radius:999px;
+  font-size:16px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+.photo-arrow:hover{
+  background:rgba(15,23,42,0.8);
+}
+
+.photo-viewport{
+  flex:1;
+  overflow:hidden;
+  border-radius:6px;
+}
+
+.photo-track{
+  display:flex;
+  transition:transform .3s ease;
+}
+
+.photo-track img{
+  flex:0 0 100%;
+  width:100%;
+  height:110px;
+  object-fit:cover;
+  display:block;
+}
+    
     @keyframes scroll-vertical {
       0% { transform: translateY(0); }
       100% { transform: translateY(-50%); }
@@ -1046,8 +1103,26 @@ header .avatar {
         <!-- add more text-only news items as you like -->
       </div>
     </div>
+    <!-- Horizontal photo strip under news -->
+    <div class="photo-strip">
+      <div class="photo-strip-heading">Photo highlights</div>
+      <div class="photo-strip-inner">
+        <button class="photo-arrow" id="photoPrev" type="button">&#8249;</button>
+        <div class="photo-viewport">
+          <div class="photo-track" id="photoTrack">
+            <img src="moment1.jpg" alt="Key moment 1">
+            <img src="moment2.jpg" alt="Key moment 2">
+            <img src="moment3.jpg" alt="Key moment 3">
+            <img src="moment4.jpg" alt="Key moment 4">
+            <img src="moment5.jpg" alt="Key moment 5">
+            <!-- add up to 10 images total -->
+          </div>
+        </div>
+        <button class="photo-arrow" id="photoNext" type="button">&#8250;</button>
+      </div>
+    </div>
   </div>
-
+ 
   <script>
   // ===== 1. METRICS DATA (EDIT ONLY THIS OBJECT) =====
   const metricsData = {
@@ -1232,6 +1307,46 @@ svg.appendChild(tY);
         ifSpan.textContent = data.impactFactor.toFixed(1);
       }
     });
+      // ===== 8. HORIZONTAL PHOTO STRIP NAVIGATION =====
+  (function(){
+    const track = document.getElementById('photoTrack');
+    if(!track) return;
+
+    const slides = Array.from(track.querySelectorAll('img'));
+    if(!slides.length) return;
+
+    let index = 0;
+
+    function updateStrip(){
+      track.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    const prevBtn = document.getElementById('photoPrev');
+    const nextBtn = document.getElementById('photoNext');
+
+    if(prevBtn){
+      prevBtn.addEventListener('click', ()=>{
+        index = (index - 1 + slides.length) % slides.length;
+        updateStrip();
+      });
+    }
+
+    if(nextBtn){
+      nextBtn.addEventListener('click', ()=>{
+        index = (index + 1) % slides.length;
+        updateStrip();
+      });
+    }
+
+    // click on the image area goes to next photo
+    track.addEventListener('click', ()=>{
+      index = (index + 1) % slides.length;
+      updateStrip();
+    });
+
+    updateStrip();
+  })();
+
   }
 </script>
 </body>
