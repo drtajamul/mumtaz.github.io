@@ -261,7 +261,7 @@
     }
 .chart{
   position:relative;
-  /* remove fixed height:180px; */
+  height:110px;                 /* was 180px or auto */
   border-radius:12px;
   border:1px solid var(--border);
   padding:0;
@@ -271,7 +271,8 @@
 
 .chart svg{
   width:100%;
-  height:auto;   /* instead of height:100% */
+  height:auto;                  /* keep aspect ratio */
+  max-height:110px;             /* cap vertical size */
 }
 /* container for each bar */
 .chart-bar{
