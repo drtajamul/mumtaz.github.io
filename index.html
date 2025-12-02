@@ -227,18 +227,27 @@
     .reveal.visible{opacity:1;transform:none}
 
     /* METRICS + CHART */
-    .metrics-grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:10px;
-      margin:8px 0 10px;
-    }
-    .metric-card{
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:var(--accent-soft);
-    }
+    .metrics-layout{
+  display:grid;
+  grid-template-columns:minmax(0,2.2fr) minmax(260px,1fr);
+  gap:12px;
+  align-items:stretch;
+  margin-top:8px;
+}
+
+.metrics-grid{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.metric-card{
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--accent-soft);
+  flex:1;
+}
     .metric-label{
       font-size:11px;
       text-transform:uppercase;
@@ -402,11 +411,14 @@
       }
     }
 
-    @media(max-width:640px){
-      header{
-        grid-template-columns:1fr;
-      }
-    }
+@media(max-width:768px){
+  .metrics-layout{
+    grid-template-columns:1fr;
+  }
+  .metrics-grid{
+    flex-direction:row;
+  }
+}
   </style>
 </head>
 <body>
@@ -447,24 +459,32 @@
     </header>
 
     <!-- Metrics + Citation graph -->
-    <section id="metrics" class="reveal" style="margin-top:16px;">
-      <h2>Scholar Metrics</h2>
-      <p class="muted" style="margin-top:4px;">Values mirror Google Scholar profile and journal reports.</p>
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <div class="metric-label">Cumulative citations</div>
-          <div class="metric-value"><strong id="totalCitations">0</strong></div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-label">Sum of journal impact factors</div>
-          <div class="metric-value"><strong id="totalIF">0.0</strong></div>
-        </div>
+<section id="metrics" class="reveal" style="margin-top:16px;">
+  <h2>Scholar Metrics</h2>
+  <p class="muted" style="margin-top:4px;">
+    Values mirror Google Scholar profile and journal reports. Edit numbers in the script block to keep this section current.
+  </p>
+
+  <div class="metrics-layout">
+    <!-- LEFT: chart -->
+    <div class="chart-wrap">
+      <h3>Yearly citations</h3>
+      <div id="citationChart" class="chart" aria-label="Yearly citation bar chart"></div>
+    </div>
+
+    <!-- RIGHT: stacked metric cards -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Cumulative citations</div>
+        <div class="metric-value"><strong id="totalCitations">0</strong></div>
       </div>
-      <div class="chart-wrap">
-        <h3>Yearly citations</h3>
-        <div id="citationChart" class="chart" aria-label="Yearly citation bar chart"></div>
+      <div class="metric-card">
+        <div class="metric-label">Sum of journal impact factors</div>
+        <div class="metric-value"><strong id="totalIF">0.0</strong></div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
     <div class="sep" role="presentation"></div>
 
