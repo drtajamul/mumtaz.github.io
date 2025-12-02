@@ -500,7 +500,11 @@ header .avatar {
   flex:1;
   overflow:hidden;
   border-radius:6px;
-  height:420px;      /* strip height – change this number if you want */
+  height:420px;     /* or whatever height you want */
+  background:#000;  /* prevents weird empty areas */
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .photo-track{
@@ -513,8 +517,8 @@ header .avatar {
   flex:0 0 100%;
   width:100%;
   height:100%;
-  object-fit:cover;
-  display:block;
+  object-fit:contain;   /* show full image, never crop */
+  background:#000;      /* fill empty sides if aspect ratio differs */
 }
     
     @keyframes scroll-vertical {
