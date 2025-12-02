@@ -417,9 +417,16 @@ header .avatar {
       z-index: 999;
     }
     .slider-window {
-      height: 250px;
+      height: 68vh;
       overflow: hidden;
+      #left-slider .slider-window {
+  height: 68vh;            /* publications stay tall */
+}
+
+#right-slider .slider-window {
+  height: 230px;           /* news panel shorter */
     }
+      
     .slider-track {
       display: flex;
       flex-direction: column;
