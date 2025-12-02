@@ -259,18 +259,19 @@
     .chart-wrap h3{
       margin-bottom:6px;
     }
-   .chart{
+.chart{
   position:relative;
-  height:180px;
+  /* remove fixed height:180px; */
   border-radius:12px;
   border:1px solid var(--border);
   padding:0;
   background:radial-gradient(circle at top,var(--accent-soft) 0,transparent 55%);
   overflow:hidden;
 }
+
 .chart svg{
   width:100%;
-  height:100%;
+  height:auto;   /* instead of height:100% */
 }
 /* container for each bar */
 .chart-bar{
@@ -1045,7 +1046,7 @@
   const svg = document.createElementNS(svgNS, 'svg');
   // shorter height so bars are visible
   svg.setAttribute('viewBox', '0 0 100 40');
-  svg.setAttribute('preserveAspectRatio', 'none');
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
   const points = [];
 
