@@ -1085,7 +1085,7 @@
     tC.setAttribute('x', cx);
     tC.setAttribute('y', labelsTop + 3);
     tC.setAttribute('text-anchor', 'middle');
-    tC.setAttribute('font-size', '5');
+    tC.setAttribute('font-size', '2.5');
     tC.setAttribute('fill', 'rgba(100,116,139,1)');
     tC.textContent = d.citations.toString();
     svg.appendChild(tC);
@@ -1093,9 +1093,9 @@
     // year label
     const tY = document.createElementNS(svgNS, 'text');
     tY.setAttribute('x', cx);
-    tY.setAttribute('y', 30);
+    tY.setAttribute('y', 40);
     tY.setAttribute('text-anchor', 'middle');
-    tY.setAttribute('font-size', '5');
+    tY.setAttribute('font-size', '3.5');
     tY.setAttribute('fill', 'rgba(148,163,184,1)');
     tY.textContent = d.year.toString();
     svg.appendChild(tY);
