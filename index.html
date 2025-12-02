@@ -270,7 +270,7 @@
     }
 .chart{
   position:relative;
-  height:110px;                 /* was 180px or auto */
+  height:140px;                 /* was 180px or auto */
   border-radius:12px;
   border:1px solid var(--border);
   padding:0;
@@ -281,7 +281,7 @@
 .chart svg{
   width:100%;
   height:auto;                  /* keep aspect ratio */
-  max-height:110px;             /* cap vertical size */
+  max-height:140px;             /* cap vertical size */
 }
 /* container for each bar */
 .chart-bar{
@@ -462,7 +462,7 @@
 <section id="metrics" class="reveal" style="margin-top:16px;">
   <h2>Scholar Metrics</h2>
   <p class="muted" style="margin-top:4px;">
-    Values mirror Google Scholar profile and journal reports. Edit numbers in the script block to keep this section current.
+    Values mirror Google Scholar profile and journal reports.
   </p>
 
   <div class="metrics-layout">
@@ -1077,7 +1077,7 @@
     const cx = band * idx + band / 2;
 
     const topMargin = 4;
-    const labelsTop = 24;          // everything below this is labels
+    const labelsTop = 26;          // everything below this is labels
     const plotHeight = labelsTop - topMargin;
 
     const ratio = d.citations / maxCites;
@@ -1102,26 +1102,23 @@
 
     points.push(`${cx},${topY}`);
 
-// citation label
+// citation label ABOVE the bar
 const tC = document.createElementNS(svgNS, 'text');
 tC.setAttribute('x', cx);
-tC.setAttribute('y', labelsTop + 3);
+// a bit above the bar top, but not off the chart
+tC.setAttribute('y', Math.max(topY - 1.5, 6));
 tC.setAttribute('text-anchor', 'middle');
 tC.setAttribute('font-size', '3');
-tC.setAttribute('font-weight', '300');              // thinner
-tC.setAttribute('style', 'font-stretch: condensed;'); // extra thin
 tC.setAttribute('fill', 'rgba(100,116,139,1)');
 tC.textContent = d.citations.toString();
 svg.appendChild(tC);
 
-// year label
+// year label where the numbers used to be (under the bar)
 const tY = document.createElementNS(svgNS, 'text');
 tY.setAttribute('x', cx);
-tY.setAttribute('y', 39);
+tY.setAttribute('y', labelsTop + 4);   // was 38
 tY.setAttribute('text-anchor', 'middle');
 tY.setAttribute('font-size', '3');
-tY.setAttribute('font-weight', '300');              // thinner
-tY.setAttribute('style', 'font-stretch: condensed;');
 tY.setAttribute('fill', 'rgba(148,163,184,1)');
 tY.textContent = d.year.toString();
 svg.appendChild(tY);
