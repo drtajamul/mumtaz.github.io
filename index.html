@@ -489,7 +489,7 @@
               Multi-omics mapping of microbial EV cargo and host pathway responses.
             </li>
             <li>
-              <strong>Early-life EVs and brain–gut links</strong><br>
+              <strong>Early-life EVs and Immunometabolic links</strong><br>
               Integration of EV sRNA data with host pathways tied to immune and metabolic pathways.
             </li>
             <li>
@@ -1083,9 +1083,9 @@
     // citation label
     const tC = document.createElementNS(svgNS, 'text');
     tC.setAttribute('x', cx);
-    tC.setAttribute('y', labelsTop + 4);
+    tC.setAttribute('y', labelsTop + 3);
     tC.setAttribute('text-anchor', 'middle');
-    tC.setAttribute('font-size', '3.5');
+    tC.setAttribute('font-size', '3');
     tC.setAttribute('fill', 'rgba(100,116,139,1)');
     tC.textContent = d.citations.toString();
     svg.appendChild(tC);
@@ -1093,9 +1093,9 @@
     // year label
     const tY = document.createElementNS(svgNS, 'text');
     tY.setAttribute('x', cx);
-    tY.setAttribute('y', 38);
+    tY.setAttribute('y', 39);
     tY.setAttribute('text-anchor', 'middle');
-    tY.setAttribute('font-size', '3.5');
+    tY.setAttribute('font-size', '3');
     tY.setAttribute('fill', 'rgba(148,163,184,1)');
     tY.textContent = d.year.toString();
     svg.appendChild(tY);
