@@ -416,17 +416,30 @@ header .avatar {
       padding-right: 20px;
       z-index: 999;
     }
-    .slider-window {
-  height: 68vh;
-  overflow: hidden;
+    /* generic slider window */
+.slider-window{
+  overflow:hidden;
 }
 
-#left-slider .slider-window {
-  height: 68vh;          /* publications stay tall */
+/* LEFT: publications stay tall */
+#left-slider .slider-window{
+  height:68vh;
 }
 
-#right-slider .slider-window {
-  height: 180px;         /* news becomes compact */
+/* RIGHT: make News and Photo Gallery same height */
+#news-panel,
+#photo-strip-panel{
+  height:320px;           /* adjust if you want taller/shorter */
+  display:flex;
+  flex-direction:column;
+}
+
+#news-panel .slider-window{
+  flex:1;
+}
+
+#photo-strip-panel .photo-strip{
+  flex:1;
 }
       
     .slider-track {
@@ -462,6 +475,9 @@ header .avatar {
   margin-top:8px;
   padding-top:6px;
   border-top:1px solid rgba(148,163,184,0.3);
+  display:flex;
+  align-items:center;
+  gap:6px;
 }
 
 .photo-strip-heading{
@@ -469,12 +485,6 @@ header .avatar {
   font-weight:700;
   margin-bottom:4px;
   color:#f9fafb;
-}
-
-.photo-strip-inner{
-  display:flex;
-  align-items:center;
-  gap:6px;
 }
 
 .photo-arrow{
@@ -500,8 +510,8 @@ header .avatar {
   flex:1;
   overflow:hidden;
   border-radius:6px;
-  height:420px;     /* or whatever height you want */
-  background:#000;  /* prevents weird empty areas */
+  height:100%;      /* fills the 320px panel */
+  background:#000;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -1086,46 +1096,47 @@ header .avatar {
     </div>
   </div>
 
-  <!-- RIGHT SIDE TEXT NEWS SLIDER -->
+    <!-- RIGHT SIDE TEXT NEWS SLIDER + PHOTO GALLERY -->
   <div id="right-slider">
-    <div class="slider-heading">Latest News</div>
-    <div class="slider-window">
-      <div class="slider-track">
-        <div class="slider-card news-card">
-          <div class="news-row">
-            <span class="news-title">Dr. Tajamul has been awarded the M-PACT FUTURES Scholar travel award</span>
-            <span class="news-date">2025</span>
-          </div>
-          <p>Dr. Tajamul delivered a talk on microbial EVs and host metabolism at the University of Nebraska.</p>
-        </div>
 
-        <div class="slider-card news-card">
-          <div class="news-row">
-            <span class="news-title">Best Poster award</span>
-            <span class="news-date">2024</span>
+    <!-- Latest News panel -->
+    <div id="news-panel">
+      <div class="slider-heading">LATEST NEWS</div>
+      <div class="slider-window">
+        <div class="slider-track">
+          <div class="slider-card news-card">
+            <div class="news-row">
+              <span class="news-title">Dr. Tajamul has been awarded the M-PACT FUTURES Scholar travel award</span>
+              <span class="news-date">2025</span>
+            </div>
+            <p>Dr. Tajamul delivered a talk on microbial EVs and host metabolism at the University of Nebraska.</p>
           </div>
-          <p>Dr. Tajamul has been awarded best poster award on microbial EVs, multi-omics, and metabolic outcomes by NPOD</p>
-        </div>
 
-        <div class="slider-card news-card">
-          <div class="news-row">
-            <span class="news-title">EV and microbiome manuscript submitted</span>
-            <span class="news-date">2024</span>
+          <div class="slider-card news-card">
+            <div class="news-row">
+              <span class="news-title">Best Poster award</span>
+              <span class="news-date">2024</span>
+            </div>
+            <p>Dr. Tajamul has been awarded best poster award on microbial EVs, multi-omics, and metabolic outcomes by NPOD.</p>
           </div>
-          <p>Study on milk EV–bacterial EV–host interactions.</p>
-        </div>
 
-        <!-- add more text-only news items as you like -->
+          <div class="slider-card news-card">
+            <div class="news-row">
+              <span class="news-title">EV and microbiome manuscript submitted</span>
+              <span class="news-date">2024</span>
+            </div>
+            <p>Study on milk EV–bacterial EV–host interactions.</p>
+          </div>
+
+          <!-- add more news-card items if you want -->
+        </div>
       </div>
     </div>
-    <!-- Horizontal photo strip under news -->
-    <div class="slider-heading" style="margin-top:20px; margin-bottom:10px;">
-  Photo Gallery
-</div>
 
-    <div class="photo-strip">
-      <div class="photo-strip-heading">Photo highlights</div>
-      <div class="photo-strip-inner">
+    <!-- Photo Gallery panel -->
+    <div id="photo-strip-panel">
+      <div class="slider-heading">PHOTO GALLERY</div>
+      <div class="photo-strip">
         <button class="photo-arrow" id="photoPrev" type="button">&#8249;</button>
         <div class="photo-viewport">
           <div class="photo-track" id="photoTrack">
@@ -1140,6 +1151,7 @@ header .avatar {
         <button class="photo-arrow" id="photoNext" type="button">&#8250;</button>
       </div>
     </div>
+
   </div>
  
   <script>
