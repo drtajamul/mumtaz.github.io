@@ -147,6 +147,53 @@ header .avatar {
       text-decoration:none;
       transform:translateY(-1px)
     }
+    .about-block{
+  margin-top:8px;
+}
+.news-card{
+  background:#111;
+  color:#f9fafb;
+}
+
+.news-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:4px;
+}
+
+.news-title{
+  font-weight:600;
+  font-size:13px;
+}
+
+.news-date{
+  font-size:12px;
+  color:#9ca3af;
+}
+
+.news-card p{
+  margin:0;
+  font-size:13px;
+  color:#e5e7eb;
+}
+
+.about-heading{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  margin:4px 0;
+}
+
+.about-list{
+  list-style:disc;
+  padding-left:18px;
+  margin:4px 0 0;
+  font-size:13px;
+  color:var(--muted);
+}
+
     .flex{display:flex;gap:10px;flex-wrap:wrap}
     .sep{height:1px;background:var(--border);margin:16px 0}
 
@@ -443,30 +490,35 @@ header .avatar {
     </div>
 
     <!-- Header / Hero -->
-     <div>
-    <h1>Peerzada Tajamul Mumtaz, Ph.D.</h1>
-    <div class="flex" aria-label="tags">
-      <span class="tag">Postdoctoral Research Associate-Zempleni Lab, UNL</span>
-      <span class="tag">Microbe and Diet EV Biology</span>
-      <span class="tag">Multi-omics Integration</span>
-    </div>
+    <header class="reveal">
+      <img class="avatar" src="IMG_9138.jpeg" alt="Portrait of Peerzada Tajamul Mumtaz" />
+      <div>
+        <h1>Peerzada Tajamul Mumtaz, Ph.D.</h1>
+        <div class="flex" aria-label="tags">
+          <span class="tag">Postdoctoral Research Associate · Zempleni Lab, UNL</span>
+          <span class="tag">Microbe and Diet EV Biology</span>
+          <span class="tag">Multi-omics Integration</span>
+        </div>
 
-    <div class="about-block">
-      <h2 class="about-heading">Background</h2>
-      <p class="muted">
-        I am a molecular biologist focused on extracellular vesicles, host–microbe interactions, and cross-kingdom signaling. My work spans bacterial and milk EVs, multi-omics, and in vivo biodistribution using reporter mice. I study how EV cargo shapes immune, metabolic, and epithelial responses. My training includes proteomics, metabolomics, transcriptomics, and small RNA analysis, along with cell culture, bacterial genetics, and mouse work. I also mentor students, lead the Postdoctoral Association at the University of Nebraska–Lincoln, and build collaborative EV-based projects aimed at metabolic and therapeutic applications.
-      </p>
-      <ul class="Skills">Skills<ul>
-        <li>Experience in Microbe and Diet EV Biology, omics integration, and handling mouse models.</li>
-        <li>Interest in translating EV biology into metabolic and immune therapies.</li>
-      </ul>
-    </div>
+        <div class="about-block">
+          <h2 class="about-heading">Background</h2>
+          <p class="muted">
+            I am a molecular biologist focused on extracellular vesicles, host–microbe interactions, and cross-kingdom signaling.
+            My work spans bacterial and milk EVs, multi-omics, and in vivo biodistribution using reporter mice.
+            I study how EV cargo shapes immune, metabolic, and epithelial responses and I mentor students and lead the Postdoctoral Association at the University of Nebraska–Lincoln.
+          </p>
+          <ul class="about-list">
+            <li>Experience in microbe and diet EV biology, omics integration, and mouse models.</li>
+            <li>Interest in translating EV biology into metabolic and immune therapies.</li>
+          </ul>
+        </div>
 
-    <div class="flex">
-      <a class="cta" href="Peerzada_Tajamul_Mumtaz_CV.pdf" aria-label="Download CV">📄 Download CV</a>
-      <a href="mailto:pmumtaz2@unl.edu" class="muted">pmumtaz2@unl.edu</a>
-    </div>
-  </div>
+        <div class="flex">
+          <a class="cta" href="Peerzada_Tajamul_Mumtaz_CV.pdf" aria-label="Download CV">📄 Download CV</a>
+          <a href="mailto:pmumtaz2@unl.edu" class="muted">pmumtaz2@unl.edu</a>
+        </div>
+      </div>
+    </header>
 
     <!-- Metrics + Citation graph -->
 <section id="metrics" class="reveal" style="margin-top:16px;">
@@ -962,35 +1014,36 @@ header .avatar {
     </div>
   </div>
 
-  <!-- RIGHT SIDE PHOTO/NEWS SLIDER -->
+  <!-- RIGHT SIDE TEXT NEWS SLIDER -->
   <div id="right-slider">
     <div class="slider-heading">Latest News</div>
     <div class="slider-window">
       <div class="slider-track">
-        <div class="slider-card">
-          <img src="news1.jpg" alt="News item 1">
-          <p><strong>News item 1</strong></p>
+        <div class="slider-card news-card">
+          <div class="news-row">
+            <span class="news-title">Dr. Tajamul has been awarded the M-PACT FUTURES Scholar travel award</span>
+            <span class="news-date">2025</span>
+          </div>
+          <p>Dr. Tajamul delivered a talk on microbial EVs and host metabolism at the University of Nebraska.</p>
         </div>
-        <div class="slider-card">
-          <img src="news2.jpg" alt="News item 2">
-          <p><strong>News item 2</strong></p>
+
+        <div class="slider-card news-card">
+          <div class="news-row">
+            <span class="news-title">Best Poster award</span>
+            <span class="news-date">2024</span>
+          </div>
+          <p>Dr. Tajamul has been awarded best poster award on microbial EVs, multi-omics, and metabolic outcomes by NPOD</p>
         </div>
-        <div class="slider-card">
-          <img src="news3.jpg" alt="News item 3">
-          <p><strong>News item 3</strong></p>
+
+        <div class="slider-card news-card">
+          <div class="news-row">
+            <span class="news-title">EV and microbiome manuscript submitted</span>
+            <span class="news-date">2024</span>
+          </div>
+          <p>Study on milk EV–bacterial EV–host interactions.</p>
         </div>
-        <div class="slider-card">
-          <img src="news4.jpg" alt="News item 4">
-          <p><strong>News item 4</strong></p>
-        </div>
-        <div class="slider-card">
-          <img src="news5.jpg" alt="News item 5">
-          <p><strong>News item 5</strong></p>
-        </div>
-        <div class="slider-card">
-          <img src="news6.jpg" alt="News item 6">
-          <p><strong>News item 6</strong></p>
-        </div>
+
+        <!-- add more text-only news items as you like -->
       </div>
     </div>
   </div>
