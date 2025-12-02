@@ -147,50 +147,40 @@ header .avatar {
       text-decoration:none;
       transform:translateY(-1px)
     }
-    .about-block{
+   .about-block{
   margin-top:8px;
 }
-.news-card{
-  background:#111;
-  color:#f9fafb;
-}
 
-.news-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:4px;
-}
-
-.news-title{
-  font-weight:600;
-  font-size:13px;
-}
-
-.news-date{
-  font-size:12px;
-  color:#9ca3af;
-}
-
-.news-card p{
-  margin:0;
-  font-size:13px;
-  color:#e5e7eb;
-}
-
+/* “Background” label */
 .about-heading{
   font-size:12px;
   text-transform:uppercase;
   letter-spacing:.08em;
   color:var(--muted);
-  margin:4px 0;
+  margin:4px 0 6px;
 }
 
+/* main background paragraph */
+.about-block p.muted{
+  font-size:14px;
+  line-height:1.5;
+}
+
+/* “Skills” label under Background */
+.about-subheading{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  margin:10px 0 4px;
+}
+
+/* bullet list under Skills */
 .about-list{
   list-style:disc;
   padding-left:18px;
-  margin:4px 0 0;
-  font-size:13px;
+  margin:0;
+  font-size:14px;      /* same as paragraph so text feels even */
   color:var(--muted);
 }
 
@@ -583,17 +573,19 @@ header .avatar {
         </div>
 
         <div class="about-block">
-          <h2 class="about-heading">Background</h2>
-          <p class="muted">
-            I am a molecular biologist focused on extracellular vesicles, host–microbe interactions, and cross-kingdom signaling.
-            My work spans bacterial and milk EVs, multi-omics, and in vivo biodistribution using reporter mice.
-            I study how EV cargo shapes immune, metabolic, and epithelial responses and I mentor students and lead the Postdoctoral Association at the University of Nebraska–Lincoln.
-          </p>
-          <ul class="about-list">
-            <li>Experience in microbe and diet EV biology, omics integration, and mouse models.</li>
-            <li>Interest in translating EV biology into metabolic and immune therapies.</li>
-          </ul>
-        </div>
+  <h2 class="about-heading">Background</h2>
+  <p class="muted">
+    I am a molecular biologist focused on extracellular vesicles, host–microbe interactions, and cross-kingdom signaling.
+    My work spans bacterial and milk EVs, multi-omics, and in vivo biodistribution using reporter mice.
+    I study how EV cargo shapes immune, metabolic, and epithelial responses and I mentor students and lead the Postdoctoral Association at the University of Nebraska–Lincoln.
+  </p>
+
+  <h3 class="about-subheading">Skills</h3>
+  <ul class="about-list">
+    <li>Experience in microbe and diet EV biology, omics integration, and mouse models.</li>
+    <li>Interest in translating EV biology into metabolic and immune therapies.</li>
+  </ul>
+</div>
 
         <div class="flex">
           <a class="cta" href="Peerzada_Tajamul_Mumtaz_CV.pdf" aria-label="Download CV">📄 Download CV</a>
