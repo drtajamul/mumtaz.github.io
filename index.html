@@ -87,13 +87,17 @@
     }
     #themeToggle:hover{transform:translateY(-2px)}
 
-    header{
-      display:grid;
-      gap:18px;
-      grid-template-columns:120px 1fr;
-      align-items:center;
-      margin-top:4px
-    }
+    header {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+header .avatar {
+  grid-column: 1 / 2;   
+  grid-row: 1 / span 3; 
+}
     .avatar{
       width:120px;
       height:120px;
@@ -442,8 +446,8 @@
      <div>
     <h1>Peerzada Tajamul Mumtaz, Ph.D.</h1>
     <div class="flex" aria-label="tags">
-      <span class="tag">Postdoctoral Research Associate</span>
-      <span class="tag">Microbiome · EV Biology</span>
+      <span class="tag">Postdoctoral Research Associate-Zempleni Lab, UNL</span>
+      <span class="tag">Microbe and Diet EV Biology</span>
       <span class="tag">Multi-omics Integration</span>
     </div>
 
@@ -452,8 +456,8 @@
       <p class="muted">
         I am a molecular biologist focused on extracellular vesicles, host–microbe interactions, and cross-kingdom signaling. My work spans bacterial and milk EVs, multi-omics, and in vivo biodistribution using reporter mice. I study how EV cargo shapes immune, metabolic, and epithelial responses. My training includes proteomics, metabolomics, transcriptomics, and small RNA analysis, along with cell culture, bacterial genetics, and mouse work. I also mentor students, lead the Postdoctoral Association at the University of Nebraska–Lincoln, and build collaborative EV-based projects aimed at metabolic and therapeutic applications.
       </p>
-      <ul class="Skills">
-        <li>Experience in EV isolation, omics integration, and reporter mouse models.</li>
+      <ul class="Skills">Skills<ul>
+        <li>Experience in Microbe and Diet EV Biology, omics integration, and handling mouse models.</li>
         <li>Interest in translating EV biology into metabolic and immune therapies.</li>
       </ul>
     </div>
@@ -823,7 +827,7 @@
       </li>
       <li>
         <strong>M.Sc. in Biochemistry</strong><br>
-        <span class="muted">University of Kashmir-2014]</span>
+        <span class="muted">University of Kashmir-2014</span>
       </li>
       <li>
         <strong>B.Sc. in Biochemsitry</strong><br>
