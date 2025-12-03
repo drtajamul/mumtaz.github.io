@@ -394,31 +394,16 @@ header .avatar {
     }
     .sub-list li:last-child{border-bottom:0}
 
-    /* LEFT + RIGHT SLIDERS */
-    #left-slider {
-      position: fixed;
-      top: 140px;
-      left: 0;
-      width: 380px;
-      padding-left: 20px;
-      z-index: 999;
-    }
-    #right-slider {
-      position: fixed;
-      top: 140px;
-      right: 0;
-      width: 380px;
-      padding-right: 20px;
-      z-index: 999;
-    }
-    /* generic slider window */
+/* generic slider window */
 .slider-window{
   overflow:hidden;
 }
 
-/* LEFT: publications stay tall */
+/* LEFT: publications window is fixed height and scrolls with side bar */
 #left-slider .slider-window{
   height:68vh;
+  overflow-y:auto;     /* vertical scroll with scrollbar */
+  overflow-x:hidden;
 }
 
 /* RIGHT: make News and Photo Gallery same height */
@@ -436,28 +421,48 @@ header .avatar {
 #photo-strip-panel .photo-strip{
   flex:1;
 }
-      
-    .slider-track {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      animation: scroll-vertical 18s linear infinite;
-    }
-    .slider-card {
-      background: #111;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-      width: 100%;
-      color:#f9fafb;
-      font-size:13px;
-    }
-    .slider-card img {
-      width: 100%;
-      display: block;
-      border-radius: 4px;
-      margin-bottom:4px;
-    }
+
+/* vertical stack for all sliders */
+.slider-track {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: scroll-vertical 18s linear infinite;
+}
+
+/* turn OFF auto-scrolling only for Latest Publications */
+#left-slider .slider-track{
+  animation:none;
+}
+
+/* card styling */
+.slider-card {
+  background: #111;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  width: 100%;
+  color:#f9fafb;
+  font-size:13px;
+  display:flex;
+  flex-direction:column;
+}
+
+/* keep news images (if any) as they were */
+.slider-card img {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+  margin-bottom:4px;
+}
+
+/* make Latest Publications thumbnails fixed-size, no cropping */
+#left-slider .slider-card img{
+  height: 200px;        /* same window size for all thumbs */
+  object-fit: contain;  /* no cropping */
+  background:#000;      /* letterbox around non-matching aspect ratios */
+}
+
     .slider-heading {
       font-size: 22px;
       font-weight: 800;
