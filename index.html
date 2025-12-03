@@ -393,36 +393,31 @@ header .avatar {
       border-bottom:1px dashed var(--border);
     }
     .sub-list li:last-child{border-bottom:0}
+/* LEFT + RIGHT SLIDERS */
+#left-slider {
+  position: fixed;
+  top: 140px;
+  left: 0;
+  width: 380px;
+  padding-left: 20px;
+  z-index: 999;
+}
+
+#right-slider {
+  position: fixed;
+  top: 140px;
+  right: 0;
+  width: 380px;
+  padding-right: 20px;
+  z-index: 999;
+}
 
 /* generic slider window */
-.slider-window{
-  overflow:hidden;
+.slider-window {
+  overflow: hidden;
 }
 
-/* LEFT: publications window is fixed height and scrolls with side bar */
-#left-slider .slider-window{
-  height:68vh;
-  overflow-y:auto;     /* vertical scroll with scrollbar */
-  overflow-x:hidden;
-}
-
-/* RIGHT: make News and Photo Gallery same height */
-#news-panel,
-#photo-strip-panel{
-  height:320px;           /* adjust if you want taller/shorter */
-  display:flex;
-  flex-direction:column;
-}
-
-#news-panel .slider-window{
-  flex:1;
-}
-
-#photo-strip-panel .photo-strip{
-  flex:1;
-}
-
-/* vertical stack for all sliders */
+/* all sliders (keep this for NEWS auto-scroll) */
 .slider-track {
   display: flex;
   flex-direction: column;
@@ -430,37 +425,41 @@ header .avatar {
   animation: scroll-vertical 18s linear infinite;
 }
 
-/* turn OFF auto-scrolling only for Latest Publications */
-#left-slider .slider-track{
-  animation:none;
-}
-
-/* card styling */
 .slider-card {
   background: #111;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.4);
   width: 100%;
-  color:#f9fafb;
-  font-size:13px;
-  display:flex;
-  flex-direction:column;
+  color: #f9fafb;
+  font-size: 13px;
 }
 
-/* keep news images (if any) as they were */
 .slider-card img {
   width: 100%;
   display: block;
   border-radius: 4px;
-  margin-bottom:4px;
+  margin-bottom: 4px;
 }
 
-/* make Latest Publications thumbnails fixed-size, no cropping */
-#left-slider .slider-card img{
-  height: 200px;        /* same window size for all thumbs */
-  object-fit: contain;  /* no cropping */
-  background:#000;      /* letterbox around non-matching aspect ratios */
+/* --- ONLY for Latest Publications (left slider) --- */
+
+#left-slider .slider-window {
+  height: 68vh;        /* fixed window height */
+  overflow-y: auto;    /* scroll with scrollbar */
+  overflow-x: hidden;
+}
+
+/* stop auto-scroll only for publications */
+#left-slider .slider-track {
+  animation: none;
+}
+
+/* fixed-size thumbnails, no cropping */
+#left-slider .slider-card img {
+  height: 200px;       /* same window height for all thumbs */
+  object-fit: contain; /* no cropping */
+  background: #000;    /* letterbox around image */
 }
 
     .slider-heading {
