@@ -462,6 +462,22 @@ header .avatar {
   background: #000;    /* letterbox around image */
 }
 
+/* RIGHT: make News and Photo Gallery same height */
+#news-panel,
+#photo-strip-panel{
+  height:320px;
+  display:flex;
+  flex-direction:column;
+}
+
+#news-panel .slider-window{
+  flex:1;
+}
+
+#photo-strip-panel .photo-strip{
+  flex:1;
+}
+
     .slider-heading {
       font-size: 22px;
       font-weight: 800;
@@ -1160,18 +1176,18 @@ header .avatar {
         <button class="photo-arrow" id="photoPrev" type="button">&#8249;</button>
         <div class="photo-viewport">
   <div class="photo-track" id="photoTrack">
-    <div class="photo-slide">
-      <img src="moment1.jpg" alt="Key moment 1">
-      <div class="photo-caption11">EV imaging session, 2024</div>
-    </div>
-    <div class="photo-slide">
-      <img src="moment2.jpg" alt="Key moment 2">
-      <div class="photo-caption222">Poster presentation, NPOD symposium</div>
-    </div>
-    <div class="photo-slide">
-      <img src="moment3.jpg" alt="Key moment 3">
-      <div class="photo-caption333">Lab group photo</div>
-    </div>
+<div class="photo-slide">
+  <img src="moment1.jpg" alt="Key moment 1">
+  <div class="photo-caption">EV imaging session, 2024</div>
+</div>
+<div class="photo-slide">
+  <img src="moment2.jpg" alt="Key moment 2">
+  <div class="photo-caption">Poster presentation, NPOD symposium</div>
+</div>
+<div class="photo-slide">
+  <img src="moment3.jpg" alt="Key moment 3">
+  <div class="photo-caption">Lab group photo</div>
+</div>
     <div class="photo-slide">
       <img src="moment4.jpg" alt="Key moment 4">
       <div class="photo-caption">Conference talk</div>
@@ -1395,39 +1411,56 @@ svg.appendChild(tY);
     if(!track) return;
 
     const slides = Array.from(track.querySelectorAll('.photo-slide'));
-
     if(!slides.length) return;
 
     let index = 0;
 
-    function updateStrip(){
+    function update(){
       track.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function next(){
+      index = (index + 1) % slides.length;
+      update();
+    }
+
+    function prev(){
+      index = (index - 1 + slides.length) % slides.length;
+      update();
     }
 
     const prevBtn = document.getElementById('photoPrev');
     const nextBtn = document.getElementById('photoNext');
 
+    const AUTO_MS = 4000;
+    let timer = setInterval(next, AUTO_MS);
+
+    function resetTimer(){
+      clearInterval(timer);
+      timer = setInterval(next, AUTO_MS);
+    }
+
     if(prevBtn){
       prevBtn.addEventListener('click', ()=>{
-        index = (index - 1 + slides.length) % slides.length;
-        updateStrip();
+        prev();
+        resetTimer();
       });
     }
 
     if(nextBtn){
       nextBtn.addEventListener('click', ()=>{
-        index = (index + 1) % slides.length;
-        updateStrip();
+        next();
+        resetTimer();
       });
     }
 
     // click on the image area goes to next photo
     track.addEventListener('click', ()=>{
-      index = (index + 1) % slides.length;
-      updateStrip();
+      next();
+      resetTimer();
     });
 
-    updateStrip();
+    update();
   })();
 
   }
