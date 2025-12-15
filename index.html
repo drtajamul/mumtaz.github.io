@@ -590,37 +590,26 @@ header .avatar {
   .metrics-grid{
     flex-direction:row;
   }
-  .profile-left{
+  .affiliation-logos{
   display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
+  justify-content:center;
+  gap:8px;
+  margin-top:6px;
+}
+.affiliation-logos img{
+  width:30%;
+  max-width:36px;
+  height:auto;
+  opacity:0.9;
+}
+.affiliation-logos img{
+  filter: grayscale(100%);
+  transition: filter 0.2s ease, opacity 0.2s ease;
 }
 
-.affiliations{
-  text-align:center;
-  font-size:12px;
-  line-height:1.4;
-}
-
-.affiliation{
-  padding:6px 8px;
-  border-radius:8px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,0.85);
-  margin-bottom:6px;
-}
-
-[data-theme="dark"] .affiliation{
-  background:rgba(17,18,24,0.85);
-}
-
-.affiliation.current{
-  font-weight:600;
-}
-
-.affiliation.past{
-  opacity:0.85;
+.affiliation-logos img:hover{
+  filter: grayscale(0%);
+  opacity: 1;
 }
 }
 
@@ -644,23 +633,14 @@ header .avatar {
 
     <!-- Header / Hero -->
     <header class="reveal">
-      <div class="profile-left">
-  <img class="avatar" src="IMG_9138.jpeg" alt="Portrait of Peerzada Tajamul Mumtaz" />
+      <img class="avatar" src="IMG_9138.jpeg" alt="Portrait of Peerzada Tajamul Mumtaz" />
 
-  <div class="affiliations">
-    <div class="affiliation current">
-      Postdoctoral Research Associate<br>
-      University of Nebraska–Lincoln
-    </div>
-
-    <div class="affiliation past">
-      Ph.D. Biochemistry<br>
-      SKUAST-Kashmir, India
-    </div>
-  </div>
+<div class="affiliation-logos">
+  <img src="logo-unl.png" alt="University of Nebraska–Lincoln">
+  <img src="logo-skuast.png" alt="SKUAST Kashmir">
 </div>
 
-        <div class="flex" aria-label="tags">
+      <div class="flex" aria-label="tags">
           <span class="tag">Postdoctoral Research Associate · Zempleni Lab, UNL</span>
 
         </div>
