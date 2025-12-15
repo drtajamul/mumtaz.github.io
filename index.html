@@ -87,17 +87,64 @@
     }
     #themeToggle:hover{transform:translateY(-2px)}
 
-    header {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 20px;
-  align-items: start;
+header.header-hero{
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:20px;
+  align-items:start;
 }
 
-header .avatar {
-  grid-column: 1 / 2;   
-  grid-row: 1 / span 3; 
+.left-rail{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
 }
+
+.header-main h1{
+  margin:0;
+  font-weight:800;   /* bold name */
+}
+
+.affiliation-logos{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-top:2px;
+}
+
+.affiliation-logos img{
+  width:36px;        /* 30% of 120px avatar */
+  height:auto;
+  filter: grayscale(100%);
+  opacity:0.9;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.affiliation-logos img:hover{
+  filter: grayscale(0%);
+  opacity:1;
+}
+
+.left-actions{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:6px;
+}
+
+.left-actions .cta{
+  width:100%;
+  justify-content:center;
+}
+
+.email-link{
+  display:block;
+  text-align:center;
+  word-break:break-word;
+}
+
     .avatar{
       width:120px;
       height:120px;
@@ -631,47 +678,58 @@ header .avatar {
     </div>
 
     <!-- Header / Hero -->
-    <header class="reveal">
-      <img class="avatar" src="./IMG_9138.jpeg" alt="Portrait of Peerzada Tajamul Mumtaz" />
+    <header class="reveal header-hero">
 
-<div class="affiliation-logos">
-  <img src="logo-unl.png" alt="University of Nebraska–Lincoln">
-  <img src="logo-skuast.png" alt="SKUAST Kashmir">
+  <!-- LEFT COLUMN: photo + logos + CV + email -->
+  <div class="left-rail">
+    <img class="avatar" src="IMG_9138.jpeg" alt="Portrait of Peerzada Tajamul Mumtaz" />
+
+<div class="affiliation-logos" aria-label="Affiliations">
+  <img src="UNL.jpg" alt="University of Nebraska–Lincoln">
+  <img src="SKUAST.jpg" alt="SKUAST-Kashmir">
+  <img src="JNU.jpg" alt="Jaipur National University">
 </div>
 
-      <div class="flex" aria-label="tags">
-          <span class="tag">Postdoctoral Research Associate · Zempleni Lab, UNL</span>
+    <div class="left-actions">
+      <a class="cta" href="Peerzada_Tajamul_Mumtaz_CV.pdf" aria-label="Download CV">📄 Download CV</a>
+      <a href="mailto:pmumtaz2@unl.edu" class="muted email-link">pmumtaz2@unl.edu</a>
+    </div>
+  </div>
 
-        </div>
+  <!-- RIGHT COLUMN: name + tags + about -->
+  <div class="header-main">
+    <h1>Peerzada T. Mumtaz, Ph.D.</h1>
 
-        <div class="about-block">
-  <h2 class="about-heading">Background</h2>
-  <p class="muted">
-    I am a molecular biologist focused on extracellular vesicles, host–microbe interactions, and cross-kingdom signaling.
-    My work spans bacterial and milk EVs, multi-omics, and in vivo biodistribution using reporter mice.
-    I study how EV cargo shapes immune, metabolic, and epithelial responses and I mentor students and lead the Postdoctoral Association at the University of Nebraska–Lincoln.
-  </p>
+    <div class="flex" aria-label="tags">
+      <span class="tag">Postdoctoral Research Associate · Zempleni Lab, UNL</span>
+      <span class="tag">Microbe and Diet EV Biology</span>
+      <span class="tag">Multi-omics Integration</span>
+    </div>
 
-<h3 class="about-subheading">Skills</h3>
-<ul class="about-list">
-  <li>Extracellular vesicle biology &#8226; Microbiome research</li>
-  <li>Multi-omics profiling &#8226; Data integration</li>
-  <li>Proteomics &#8226; Metabolomics &#8226; Lipidomics &#8226; sRNA-seq</li>
-  <li>R-based analysis &#8226; Data visualization</li>
-  <li>EV isolation and characterization &#8226; EV engineering</li>
-  <li>Mammalian cell culture &#8226; Bacterial cell culture</li>
-  <li>Mouse biodistribution studies &#8226; Metabolic phenotyping</li>
-  <li>Grant writing &#8226; Teaching &#8226; Scientific leadership</li>
-</ul>
+    <div class="about-block">
+      <h2 class="about-heading">Background</h2>
+      <p class="muted">
+        I am a molecular biologist focused on extracellular vesicles, host–microbe interactions, and cross-kingdom signaling.
+        My work spans bacterial and milk EVs, multi-omics, and in vivo biodistribution using reporter mice.
+        I study how EV cargo shapes immune, metabolic, and epithelial responses and I mentor students and lead the Postdoctoral Association at the University of Nebraska–Lincoln.
+      </p>
 
-</div>
+      <h3 class="about-subheading">Skills</h3>
+      <ul class="about-list">
+        <li>Extracellular vesicle biology &#8226; Microbiome research</li>
+        <li>Multi-omics profiling &#8226; Data integration</li>
+        <li>Proteomics &#8226; Metabolomics &#8226; Lipidomics &#8226; sRNA-seq</li>
+        <li>R-based analysis &#8226; Data visualization</li>
+        <li>EV isolation and characterization &#8226; EV engineering</li>
+        <li>Mammalian cell culture &#8226; Bacterial cell culture</li>
+        <li>Mouse biodistribution studies &#8226; Metabolic phenotyping</li>
+        <li>Grant writing &#8226; Teaching &#8226; Scientific leadership</li>
+      </ul>
+    </div>
+  </div>
 
-        <div class="flex about-actions">
-  <a class="cta" href="Peerzada_Tajamul_Mumtaz_CV.pdf" aria-label="Download CV">📄 Download CV</a>
-  <a href="mailto:pmumtaz2@unl.edu" class="muted">pmumtaz2@unl.edu</a>
-</div>
+</header>
 
-    </header>
 
     <!-- Metrics + Citation graph -->
 <section id="metrics" class="reveal" style="margin-top:16px;">
