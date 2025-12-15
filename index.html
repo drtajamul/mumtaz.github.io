@@ -457,9 +457,13 @@ header .avatar {
 
 /* fixed-size thumbnails, no cropping */
 #left-slider .slider-card img {
-  height: 200px;       /* same window height for all thumbs */
+  height: 400px;       /* same window height for all thumbs */
   object-fit: contain; /* no cropping */
   background: #000;    /* letterbox around image */
+}
+#left-slider .slider-card img {
+  transform: scale(1.35);     /* zoom into the PDF page */
+  transform-origin: center;
 }
 
 /* RIGHT: make News and Photo Gallery same height */
