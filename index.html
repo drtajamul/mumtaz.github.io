@@ -137,12 +137,14 @@ header.header-hero{
 .left-actions .cta{
   width:100%;
   justify-content:center;
+  text-align:center;
 }
 
 .email-link{
   display:block;
   text-align:center;
-  word-break:break-word;
+  font-size:12px;
+  white-space:nowrap;
 }
 
     .avatar{
@@ -649,12 +651,12 @@ header.header-hero{
   opacity:0.9;
 }
 .affiliation-logos img{
-  filter: grayscale(100%);
+  filter: grayscale(0%);
   transition: filter 0.2s ease, opacity 0.2s ease;
 }
 
 .affiliation-logos img:hover{
-  filter: grayscale(0%);
+  filter: grayscale(100%);
   opacity: 1;
 }
 }
