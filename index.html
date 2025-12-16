@@ -633,15 +633,18 @@ header.header-hero{
   .metrics-layout{
     grid-template-columns:1fr;
   }
+  
   .metrics-grid{
     flex-direction:row;
   }
+  
   .affiliation-logos{
   display:flex;
   justify-content:center;
   gap:8px;
   margin-top:6px;
 }
+  
 .affiliation-logos img{
   width:30%;
   max-width:36px;
@@ -665,15 +668,18 @@ header.header-hero{
   justify-content:center;
   text-align:center;
 }
-  /* FORCE CENTER ALIGNMENT FOR METRIC TEXT ONLY */
-.metrics-grid .metric-card,
-.metrics-grid .metric-label,
-.metrics-grid .metric-value,
-.metrics-grid .metric-value strong{
-  text-align: center !important;
-  align-items: center;
-  justify-content: center;
+/* CENTER TEXT ONLY IN THE 4 METRIC CARDS */
+.metrics-grid-left .metric-card,
+.metrics-grid-right .metric-card{
+  text-align:center !important;
 }
+
+.metrics-grid-left .metric-label,
+.metrics-grid-right .metric-label,
+.metrics-grid-left .metric-value,
+.metrics-grid-right .metric-value{
+  text-align:center !important;
+  width:100%;
 }
 
   </style>
