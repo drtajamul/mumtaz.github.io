@@ -323,50 +323,54 @@ header.header-hero{
     .reveal.visible{opacity:1;transform:none}
 
     /* METRICS + CHART */
-    .metrics-layout{
+/* METRICS + CHART */
+:root{
+  --metric-stack-height: 194px; /* matches two stacked cards + gap */
+}
+
+.metrics-layout{
   display:grid;
-  grid-template-columns:minmax(0,2.2fr) minmax(260px,1fr);
+  grid-template-columns: minmax(150px, 0.55fr) minmax(0, 2.2fr) minmax(150px, 0.55fr);
   gap:12px;
   align-items:stretch;
   margin-top:8px;
 }
 
+/* side stacks */
 .metrics-grid{
   display:flex;
   flex-direction:column;
   gap:10px;
 }
 
+/* shrink these “tabs” by tightening their column width + giving cards a set minimum */
 .metric-card{
   padding:10px 12px;
   border-radius:12px;
   border:1px solid var(--border);
   background:var(--accent-soft);
-  flex:1;
+  min-height:92px;
 }
-    .metric-label{
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-      color:var(--muted);
-      margin-bottom:4px;
-    }
-    .metric-value{
-      font-size:22px;
-      font-weight:700;
-    }
-    .metric-value strong{
-      font-weight:800;
-    }
-    .chart-wrap{
-      margin-top:6px;
-    }
-    .chart-wrap h3{
-      margin-bottom:6px;
-    }
+
+/* center chart */
+.chart-wrap{
+  display:flex;
+  flex-direction:column;
+}
+.chart-wrap-center{
+  align-items:center;
+  text-align:center;
+}
+.chart-wrap-center h3{
+  width:100%;
+  text-align:center;
+  margin-bottom:6px;
+}
+
 .chart{
   position:relative;
-  height:160px;                 /* was 180px or auto */
+  width:100%;
+  height: var(--metric-stack-height);  /* same height as the 2 stacked cards */
   border-radius:12px;
   border:1px solid var(--border);
   padding:0;
@@ -374,43 +378,35 @@ header.header-hero{
   overflow:hidden;
 }
 
-.chart svg {
-  width: 100%;
-  height: 160px;
-  display: block;
-  object-fit: fill;     /* allow horizontal stretching */
-}
-/* container for each bar */
-.chart-bar{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  align-items:center;
-  gap:4px;
-  font-size:10px;
-  color:var(--muted);
+.chart svg{
+  width:100%;
+  height: var(--metric-stack-height);
+  display:block;
+  object-fit:fill;
 }
 
-/* actual bar */
-.chart-bar-inner{
-  width:80%;
-  border-radius:999px 999px 0 0;
-  background:#10b981; /* will be overwritten in JS with green→red gradient */
-  position:relative;
-  transition:height .25s ease, transform .15s ease, opacity .15s ease;
-}
-.chart-bar-inner:hover{
-  opacity:1;
-  transform:translateY(-3px);
+@media(max-width:768px){
+  .metrics-layout{
+    grid-template-columns:1fr;
+  }
+  .metrics-grid{
+    flex-direction:row;
+  }
+  .metric-card{
+    width:100%;
+  }
+  .chart-wrap-center{
+    align-items:stretch;
+    text-align:left;
+  }
+  .chart{
+    height:160px;
+  }
+  .chart svg{
+    height:160px;
+  }
 }
 
-/* SVG line overlay */
-.chart-line{
-  position:absolute;
-  inset:8px 8px 22px 8px;
-  pointer-events:none;
-}
     /* PUBLICATIONS WITH METRICS */
     .pub-item{display:grid;grid-template-columns:1fr;gap:4px}
     .pub-title{font-weight:600}
@@ -732,21 +728,9 @@ header.header-hero{
 
 
     <!-- Metrics + Citation graph -->
-<section id="metrics" class="reveal" style="margin-top:16px;">
-  <h2>Scholar Metrics</h2>
-  <p class="muted" style="margin-top:4px;">
-    Values mirror Google Scholar profile and journal reports.
-  </p>
-
   <div class="metrics-layout">
-    <!-- LEFT: chart -->
-    <div class="chart-wrap">
-      <h3>Yearly citations</h3>
-      <div id="citationChart" class="chart" aria-label="Yearly citation bar chart"></div>
-    </div>
-
-    <!-- RIGHT: stacked metric cards -->
-    <div class="metrics-grid">
+    <!-- LEFT: stacked metric cards (narrow) -->
+    <div class="metrics-grid metrics-grid-left">
       <div class="metric-card">
         <div class="metric-label">Cumulative citations</div>
         <div class="metric-value"><strong id="totalCitations">0</strong></div>
@@ -756,7 +740,26 @@ header.header-hero{
         <div class="metric-value"><strong id="totalIF">0.0</strong></div>
       </div>
     </div>
+
+    <!-- CENTER: chart -->
+    <div class="chart-wrap chart-wrap-center">
+      <h3>Yearly citations</h3>
+      <div id="citationChart" class="chart" aria-label="Yearly citation bar chart"></div>
+    </div>
+
+    <!-- RIGHT: h-index + i10-index (narrow) -->
+    <div class="metrics-grid metrics-grid-right">
+      <div class="metric-card">
+        <div class="metric-label">h-index</div>
+        <div class="metric-value"><strong id="totalHIndex">0</strong></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">i10-index</div>
+        <div class="metric-value"><strong id="totalI10">0</strong></div>
+      </div>
+    </div>
   </div>
+
 </section>
 
     <div class="sep" role="presentation"></div>
@@ -1368,6 +1371,8 @@ header.header-hero{
     // from Google Scholar
     totalCitations: 990,
     totalIF: 81.5,          // put your own sum of IFs here
+    h-Index: 13,
+    i10-Index: 14,
 
     // from the “Citations per year” bars on Google Scholar
     // replace citation numbers with the exact ones you see
@@ -1441,6 +1446,12 @@ header.header-hero{
   if(typeof metricsData.totalIF === 'number'){
     document.getElementById('totalIF').textContent =
       metricsData.totalIF.toFixed(1);
+  }
+    if(typeof metricsData.h-Index === 'number'){
+    document.getElementById('totalHIndex').textContent = metricsData.hIndex.toString();
+  }
+  if(typeof metricsData.i10-Index === 'number'){
+    document.getElementById('totalI10').textContent = metricsData.i10Index.toString();
   }
 
   // ===== 6. YEARLY CITATION CHART (SVG bars + line, green→red) =====
