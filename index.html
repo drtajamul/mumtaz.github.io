@@ -660,28 +660,14 @@ header.header-hero{
   filter: grayscale(100%);
   opacity: 1;
 }
-  /* CENTER ONLY THE FOUR METRIC CARDS */
-.metrics-grid .metric-card{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-/* CENTER TEXT ONLY IN THE 4 METRIC CARDS */
-.metrics-grid-left .metric-card,
-.metrics-grid-right .metric-card{
-  text-align:center !important;
-}
 
-.metrics-grid-left .metric-label,
-.metrics-grid-right .metric-label,
-.metrics-grid-left .metric-value,
-.metrics-grid-right .metric-value{
-  text-align:center !important;
-  width:100%;
+/* FORCE CENTER ALIGNMENT FOR ALL TEXT INSIDE METRIC BOXES */
+.metrics-grid-left .metric-card *,
+.metrics-grid-right .metric-card *{
+  text-align: center !important;
+  margin-left: auto;
+  margin-right: auto;
 }
-
   </style>
 </head>
 <body>
