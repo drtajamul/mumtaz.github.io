@@ -1371,8 +1371,8 @@ header.header-hero{
     // from Google Scholar
     totalCitations: 990,
     totalIF: 81.5,          // put your own sum of IFs here
-    h-Index: 13,
-    i10-Index: 14,
+    hIndex: 13,
+    i10Index: 14,
 
     // from the “Citations per year” bars on Google Scholar
     // replace citation numbers with the exact ones you see
@@ -1447,12 +1447,15 @@ header.header-hero{
     document.getElementById('totalIF').textContent =
       metricsData.totalIF.toFixed(1);
   }
-    if(typeof metricsData.h-Index === 'number'){
-    document.getElementById('totalHIndex').textContent = metricsData.hIndex.toString();
-  }
-  if(typeof metricsData.i10-Index === 'number'){
-    document.getElementById('totalI10').textContent = metricsData.i10Index.toString();
-  }
+   if(typeof metricsData.hIndex === 'number'){
+  document.getElementById('totalHIndex').textContent =
+    metricsData.hIndex.toString();
+}
+
+if(typeof metricsData.i10Index === 'number'){
+  document.getElementById('totalI10').textContent =
+    metricsData.i10Index.toString();
+}
 
   // ===== 6. YEARLY CITATION CHART (SVG bars + line, green→red) =====
 (function() {
