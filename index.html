@@ -199,6 +199,127 @@ header.header-hero{
    .about-block{
   margin-top:8px;
 }
+/* ===== Banner strip ===== */
+.banner-wrap{
+  margin: 10px 0 16px;
+}
+
+.banner{
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.banner-viewport{
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+}
+
+.banner-track{
+  display: flex;
+  height: 150px;
+  transition: transform 0.35s ease;
+}
+
+.banner-slide{
+  flex: 0 0 100%;
+  height: 150px;
+}
+
+.banner-slide img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* subtle overlay for readability */
+.banner::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.12), rgba(0,0,0,0));
+  pointer-events:none;
+}
+
+.banner-btn{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.85);
+  color: #111827;
+  cursor: pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index: 2;
+}
+
+.banner-btn:hover{
+  background: rgba(255,255,255,0.95);
+}
+
+#bannerPrev{ left: 10px; }
+#bannerNext{ right: 10px; }
+
+[data-theme="dark"] .banner-btn{
+  background: rgba(17,18,24,0.75);
+  color: var(--text);
+}
+
+.banner-controls{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.banner-toggle{
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.banner-dots{
+  display:flex;
+  gap: 6px;
+  align-items:center;
+}
+
+.banner-dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.banner-dot.active{
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+@media(max-width:768px){
+  .banner-viewport,
+  .banner-track,
+  .banner-slide{
+    height: 110px;
+  }
+}
 
 /* “Background” label */
 .about-heading{
@@ -689,6 +810,28 @@ header.header-hero{
       </nav>
       <button id="themeToggle" aria-label="Toggle color theme">🌙 Dark</button>
     </div>
+
+    <!-- Institution / Lab banner strip -->
+<div class="banner-wrap" id="bannerWrap">
+  <div class="banner" id="banner">
+    <button class="banner-btn" id="bannerPrev" type="button" aria-label="Previous banner">‹</button>
+
+    <div class="banner-viewport">
+      <div class="banner-track" id="bannerTrack">
+        <div class="banner-slide"><img src="banner1.jpg" alt="UNL campus"></div>
+        <div class="banner-slide"><img src="banner2.jpg" alt="Zempleni lab"></div>
+        <div class="banner-slide"><img src="banner3.jpg" alt="Department building"></div>
+      </div>
+    </div>
+
+    <button class="banner-btn" id="bannerNext" type="button" aria-label="Next banner">›</button>
+  </div>
+
+  <div class="banner-controls">
+    <button class="banner-toggle" id="bannerToggle" type="button">Hide photos</button>
+    <div class="banner-dots" id="bannerDots" aria-label="Banner slide dots"></div>
+  </div>
+</div>
 
     <!-- Header / Hero -->
     <header class="reveal header-hero">
@@ -1655,6 +1798,99 @@ svg.appendChild(tY);
     update();
   })();
 
+    // ===== Banner strip slider + toggle =====
+(function(){
+  const track = document.getElementById('bannerTrack');
+  const prevBtn = document.getElementById('bannerPrev');
+  const nextBtn = document.getElementById('bannerNext');
+  const toggleBtn = document.getElementById('bannerToggle');
+  const wrap = document.getElementById('bannerWrap');
+  const dotsWrap = document.getElementById('bannerDots');
+
+  if(!track || !wrap) return;
+
+  const slides = Array.from(track.querySelectorAll('.banner-slide'));
+  if(!slides.length) return;
+
+  let index = 0;
+
+  function renderDots(){
+    dotsWrap.innerHTML = "";
+    slides.forEach((_, i)=>{
+      const b = document.createElement('button');
+      b.type = "button";
+      b.className = "banner-dot" + (i === index ? " active" : "");
+      b.setAttribute('aria-label', `Go to banner ${i+1}`);
+      b.addEventListener('click', ()=>{
+        index = i;
+        update();
+        resetTimer();
+      });
+      dotsWrap.appendChild(b);
+    });
+  }
+
+  function update(){
+    track.style.transform = `translateX(-${index * 100}%)`;
+    Array.from(dotsWrap.children).forEach((d, i)=>{
+      d.classList.toggle('active', i === index);
+    });
+  }
+
+  function next(){
+    index = (index + 1) % slides.length;
+    update();
+  }
+
+  function prev(){
+    index = (index - 1 + slides.length) % slides.length;
+    update();
+  }
+
+  let timer = null;
+  const AUTO_MS = 4500;
+
+  function startTimer(){
+    timer = setInterval(next, AUTO_MS);
+  }
+
+  function resetTimer(){
+    if(timer) clearInterval(timer);
+    startTimer();
+  }
+
+  if(prevBtn){
+    prevBtn.addEventListener('click', ()=>{
+      prev();
+      resetTimer();
+    });
+  }
+  if(nextBtn){
+    nextBtn.addEventListener('click', ()=>{
+      next();
+      resetTimer();
+    });
+  }
+
+  // toggle show/hide
+  let visible = true;
+  if(toggleBtn){
+    toggleBtn.addEventListener('click', ()=>{
+      visible = !visible;
+      wrap.querySelector('.banner').style.display = visible ? "block" : "none";
+      wrap.querySelector('.banner-controls').style.display = visible ? "flex" : "flex";
+      toggleBtn.textContent = visible ? "Hide photos" : "Show photos";
+    });
+  }
+
+  // pause on hover
+  wrap.addEventListener('mouseenter', ()=>{ if(timer) clearInterval(timer); });
+  wrap.addEventListener('mouseleave', ()=>{ resetTimer(); });
+
+  renderDots();
+  update();
+  startTimer();
+})();
   }
 </script>
 </body>
