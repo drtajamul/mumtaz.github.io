@@ -113,17 +113,46 @@ header.header-hero{
   margin-top:2px;
 }
 
-.affiliation-logos img{
-  width:36px;        /* 30% of 120px avatar */
-  height:auto;
-  filter: grayscale(0%);
-  opacity:0.9;
-  transition: filter 0.2s ease, opacity 0.2s ease;
+.affil-logo{
+  width:36px;
+  height:36px;
+  object-fit: contain;
+  padding:4px;
+  border-radius:999px;
+  background: transparent;
+  opacity:0.85;
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
 }
 
 .affiliation-logos img:hover{
   filter: grayscale(100%);
   opacity:1;
+}
+.affiliations{
+  text-align: center;
+  margin-top: 4px;
+}
+
+.affiliation-label{
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.affil-logo.current{
+  background: #ffffff;
+  box-shadow: 0 0 0 2px var(--accent);
+  opacity: 1;
+}
+[data-theme="dark"] .affil-logo.current{
+  background: #0e1016;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.affil-logo:hover{
+  transform: scale(1.08);
+  opacity: 1;
 }
 
 .left-actions{
@@ -840,10 +869,14 @@ header.header-hero{
   <div class="left-rail">
     <img class="avatar" src="IMG_9138.jpeg" alt="Portrait of Peerzada Tajamul Mumtaz" />
 
-<div class="affiliation-logos" aria-label="Affiliations">
-  <img src="UNL.jpg" alt="University of Nebraska–Lincoln">
-  <img src="SKUAST.jpg" alt="SKUAST-Kashmir">
-  <img src="JNU.jpg" alt="Jaipur National University">
+<div class="affiliations">
+  <div class="affiliation-label">Affiliations</div>
+
+  <div class="affiliation-logos" aria-label="Affiliations">
+    <img src="UNL.jpg" alt="University of Nebraska–Lincoln" class="affil-logo current">
+    <img src="SKUAST.jpg" alt="SKUAST-Kashmir" class="affil-logo">
+    <img src="JNU.jpg" alt="Jaipur National University" class="affil-logo">
+  </div>
 </div>
 
     <div class="left-actions">
