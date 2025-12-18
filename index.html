@@ -1512,7 +1512,7 @@ if(typeof metricsData.i10Index === 'number'){
   const svgNS = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(svgNS, 'svg');
   // shorter height so bars are visible
-  svg.setAttribute('viewBox', '0 0 100 40');
+  svg.setAttribute('viewBox', '0 0 100 52');
   svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
   const points = [];
@@ -1522,8 +1522,8 @@ if(typeof metricsData.i10Index === 'number'){
     const barWidth = band * 0.3;   // bar is 30% of slot
     const cx = band * idx + band / 2;
 
-    const topMargin = 4;
-    const labelsTop = 26;          // everything below this is labels
+    const topMargin = 8;
+    const labelsTop = 38;          // everything below this is labels
     const plotHeight = labelsTop - topMargin;
 
     const ratio = d.citations / maxCites;
@@ -1552,7 +1552,7 @@ if(typeof metricsData.i10Index === 'number'){
 const tC = document.createElementNS(svgNS, 'text');
 tC.setAttribute('x', cx);
 // a bit above the bar top, but not off the chart
-tC.setAttribute('y', topY - 2);   // moves number up
+tC.setAttribute('y', topY - 2, 6);   // moves number up
 tC.setAttribute('text-anchor', 'middle');
 tC.setAttribute('font-size', '3');
 tC.setAttribute('fill', 'rgba(100,116,139,1)');
@@ -1562,7 +1562,7 @@ svg.appendChild(tC);
 // year label where the numbers used to be (under the bar)
 const tY = document.createElementNS(svgNS, 'text');
 tY.setAttribute('x', cx);
-tY.setAttribute('y', labelsTop + 5);
+tY.setAttribute('y', labelsTop + 10);
 tY.setAttribute('text-anchor', 'middle');
 tY.setAttribute('font-size', '3');
 tY.setAttribute('fill', 'rgba(148,163,184,1)');
