@@ -43,7 +43,19 @@ ent<!DOCTYPE html>
     }
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
-    .wrap{max-width:var(--max);margin:0 auto;padding:16px 16px 40px}
+   .wrap{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:16px 16px 40px;
+}
+
+/* reserve space for fixed left/right sliders on wide screens */
+@media (min-width: 1200px){
+  .wrap{
+    padding-left: 420px;
+    padding-right: 420px;
+  }
+}
 
     /* TOPBAR + NAV */
     .topbar{
@@ -815,7 +827,7 @@ header.header-hero{
     #right-slider:hover .slider-track {
       animation-play-state: paused;
     }
-    @media (max-width: 900px) {
+    @media (max-width: 1200px) {
       #left-slider, #right-slider {
         display: none;
       }
