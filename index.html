@@ -154,6 +154,44 @@ header.header-hero{
   transform: scale(1.08);
   opacity: 1;
 }
+/* clickable logo wrapper */
+.affil-link{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* hover popup label */
+.affil-tip{
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgba(17,24,39,0.95);
+  color: #f9fafb;
+  font-size: 11px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 10;
+}
+
+/* show on hover */
+.affil-link:hover .affil-tip{
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* dark theme tooltip */
+[data-theme="dark"] .affil-tip{
+  background: rgba(229,231,235,0.95);
+  color: #111827;
+}
 
 .left-actions{
   width:100%;
@@ -873,9 +911,40 @@ header.header-hero{
   <div class="affiliation-label">Affiliations</div>
 
   <div class="affiliation-logos" aria-label="Affiliations">
-    <img src="UNL.jpg" alt="University of Nebraska–Lincoln" class="affil-logo current">
-    <img src="SKUAST.jpg" alt="SKUAST-Kashmir" class="affil-logo">
-    <img src="JNU.jpg" alt="Jaipur National University" class="affil-logo">
+
+    <a class="affil-link"
+       href="https://www.unl.edu/"
+       target="_blank"
+       rel="noopener"
+       aria-label="University of Nebraska–Lincoln">
+      <img src="UNL.jpg"
+           alt="University of Nebraska–Lincoln"
+           class="affil-logo current">
+      <span class="affil-tip">University of Nebraska–Lincoln</span>
+    </a>
+
+    <a class="affil-link"
+       href="https://www.skuastkashmir.ac.in/"
+       target="_blank"
+       rel="noopener"
+       aria-label="SKUAST-Kashmir">
+      <img src="SKUAST.jpg"
+           alt="SKUAST-Kashmir"
+           class="affil-logo">
+      <span class="affil-tip">SKUAST-Kashmir</span>
+    </a>
+
+    <a class="affil-link"
+       href="https://www.jnujaipur.ac.in/"
+       target="_blank"
+       rel="noopener"
+       aria-label="Jaipur National University">
+      <img src="JNU.jpg"
+           alt="Jaipur National University"
+           class="affil-logo">
+      <span class="affil-tip">Jaipur National University</span>
+    </a>
+
   </div>
 </div>
 
