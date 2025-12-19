@@ -50,11 +50,21 @@ ent<!DOCTYPE html>
 }
 
 /* reserve space for fixed left/right sliders on wide screens */
-@media (min-width: 1200px){
+@media (min-width: 980px){
+  .wrap{
+    padding-left: 340px;
+    padding-right: 340px;
+  }
+}
+
+@media (min-width: 1400px){
   .wrap{
     padding-left: 420px;
     padding-right: 420px;
   }
+  @media (min-width: 980px){
+  .nav-links{ flex-wrap: nowrap; }
+}
 }
 
     /* TOPBAR + NAV */
@@ -65,12 +75,12 @@ ent<!DOCTYPE html>
       gap:12px;
       margin-bottom:8px;
     }
-    .nav-links{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      font-size:13px;
-    }
+.nav-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  font-size:12px;
+}
     .nav-links a{
       padding:6px 10px;
       border-radius:999px;
@@ -644,22 +654,31 @@ header.header-hero{
     }
     .sub-list li:last-child{border-bottom:0}
 /* LEFT + RIGHT SLIDERS */
-#left-slider {
+#left-slider{
   position: fixed;
   top: 140px;
   left: 0;
-  width: 380px;
-  padding-left: 20px;
+  width: 300px;
+  padding-left: 12px;
   z-index: 999;
 }
 
-#right-slider {
+#right-slider{
   position: fixed;
   top: 140px;
   right: 0;
-  width: 380px;
-  padding-right: 20px;
+  width: 300px;
+  padding-right: 12px;
   z-index: 999;
+}
+
+/* large screens */
+@media (min-width: 1400px){
+  #left-slider, #right-slider{
+    width: 380px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 /* generic slider window */
@@ -827,7 +846,7 @@ header.header-hero{
     #right-slider:hover .slider-track {
       animation-play-state: paused;
     }
-    @media (max-width: 1200px) {
+    @media (max-width: 980px) {
       #left-slider, #right-slider {
         display: none;
       }
