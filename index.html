@@ -804,7 +804,7 @@ header.header-hero{
   overflow: hidden;
   border-radius: 6px;
   height: 100%;
-  background: #000;
+  background: #e5e7eb;  /* grey */
 }
 
 /* track holds all slides side-by-side */
@@ -821,16 +821,17 @@ header.header-hero{
   flex-direction: column;
   height: 100%;
   box-sizing: border-box;
-  padding: 4px;
+  padding: 6px;
+  gap: 6px;                 /* space between image and caption */
 }
 
-/* image uses all available vertical space above caption */
 .photo-slide img{
   flex: 1 1 auto;
   width: 100%;
-  height: 100%;
+  height: auto;             /* key: stop forcing full height */
+  min-height: 0;            /* prevents overflow in flex layouts */
   object-fit: contain;
-  background: #000;
+  background: transparent;  /* background handled by viewport */
 }
 
 /* caption at bottom of slide */
