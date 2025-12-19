@@ -54,6 +54,7 @@ ent<!DOCTYPE html>
   .wrap{
     padding-left: 340px;
     padding-right: 340px;
+    max-width: calc(var(--max) + 680px);
   }
 }
 
@@ -61,10 +62,14 @@ ent<!DOCTYPE html>
   .wrap{
     padding-left: 420px;
     padding-right: 420px;
+    max-width: calc(var(--max) + 840px);
   }
-  @media (min-width: 980px){
-  .nav-links{ flex-wrap: nowrap; }
 }
+
+@media (min-width: 980px){
+  .nav-links{
+    flex-wrap: nowrap;
+  }
 }
 
     /* TOPBAR + NAV */
@@ -1014,7 +1019,6 @@ header.header-hero{
   </div>
 
 </header>
-
 
     <!-- Metrics + Citation graph -->
   <div class="metrics-layout">
