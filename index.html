@@ -741,9 +741,14 @@ header.header-hero{
 }
 
 /* RIGHT: make News and Photo Gallery same height */
-#news-panel,
-#photo-strip-panel{
+#news-panel{
   height:320px;
+  display:flex;
+  flex-direction:column;
+}
+
+#photo-strip-panel{
+  height:280px;          /* smaller photo panel */
   display:flex;
   flex-direction:column;
 }
